@@ -2,8 +2,18 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:NolMed"
-             StartupUri="MainWindow.xaml">
+             StartupUri="MainWindow.xaml"
+             
+             xmlns:viewmodels="clr-namespace:NolMed.views.models"
+             xmlns:views="clr-namespace:NolMed.views.usercontrol">
     <Application.Resources>
-         
+        <DataTemplate DataType="{x:Type viewmodels:DeskViewModel}">
+            <views:DeskView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
+            <views:LoginView />
+        </DataTemplate>
+
     </Application.Resources>
 </Application>
