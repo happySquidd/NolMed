@@ -26,7 +26,7 @@ namespace NolMed.views.models
             set { _isLoggedIn = value; OnPropertyChanged(); }
         }
 
-        public Staff CurrentUser { get; private set; }
+        public Employee CurrentUser { get; private set; }
         public ObservableCollection<model.MenuItem> MenuItems { get; set; }
 
         public MainViewModel()
@@ -36,7 +36,7 @@ namespace NolMed.views.models
             CurrentView = new LoginViewModel(this);
         }
 
-        public void LoginUser(Staff User)
+        public void LoginUser(Employee User)
         {
             CurrentUser = User;
             IsLoggedIn = true;
