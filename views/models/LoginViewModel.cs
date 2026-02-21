@@ -27,7 +27,6 @@ namespace NolMed.views.models
         {
             var passwordBox = button as PasswordBox;
             if (passwordBox == null) return;
-            // 2. Safely extract the password 
             string plainTextPassword = passwordBox.Password;
 
             var role = "Admin";

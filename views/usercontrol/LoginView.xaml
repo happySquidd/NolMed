@@ -8,7 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <StackPanel Width="300" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock Text="Welcome. Please Log In." FontSize="20" Margin="0,0,0,20" HorizontalAlignment="Center"/>
+            <TextBlock Text="Welcome! Please Log In" FontSize="20" Margin="0,0,0,20" HorizontalAlignment="Center"/>
 
             <TextBlock Text="Username:" />
             <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" Padding="5"/>
