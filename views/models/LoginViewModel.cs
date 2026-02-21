@@ -34,8 +34,9 @@ namespace NolMed.views.models
         public void ExecuteLogin(object button)
         {
             var passwordBox = button as PasswordBox;
-            if (passwordBox == null) return;
-            var password = BC.BCrypt.HashPassword(passwordBox.Password, Username);
+            if (string.IsNullOrEmpty(passwordBox?.Password)) { ErrorMessage = "Please enter a password"; return; }
+            //var password = BC.BCrypt.HashPassword(passwordBox.Password);
+            var password = passwordBox.Password;
 
             if (!DatabaseFunctions.FindUsername(Username)) { ErrorMessage = "Username doesn't exist"; return; }
 
