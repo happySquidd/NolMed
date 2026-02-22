@@ -15,5 +15,9 @@
             <views:LoginView />
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type viewmodels:RegisterViewModel}">
+            <views:RegisterView />
+        </DataTemplate>
+
     </Application.Resources>
 </Application>

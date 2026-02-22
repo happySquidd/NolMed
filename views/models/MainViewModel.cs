@@ -33,7 +33,7 @@ namespace NolMed.views.models
         {
             MenuItems = new ObservableCollection<model.MenuItem>();
             IsLoggedIn = false;
-            CurrentView = new LoginViewModel(this);
+            PromptLogin();
         }
 
         public void LoginUser(Employee User)
@@ -41,6 +41,16 @@ namespace NolMed.views.models
             CurrentUser = User;
             IsLoggedIn = true;
             GeneratePage();
+        }
+
+        public void PromptRegister()
+        {
+            CurrentView = new RegisterViewModel(this);
+        }
+
+        public void PromptLogin()
+        {
+            CurrentView = new LoginViewModel(this);
         }
 
         private void GeneratePage()

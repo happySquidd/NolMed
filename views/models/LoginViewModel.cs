@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using NolMed.database;
+using System.Diagnostics;
 
 namespace NolMed.views.models
 {
@@ -17,6 +18,7 @@ namespace NolMed.views.models
         private readonly MainViewModel _mainViewModel;
         public string Username { get; set; }
         public ICommand LoginCommand { get; }
+        public ICommand RegisterCommand { get; }
 
         private string _errorMessage;
         public string ErrorMessage
@@ -29,17 +31,20 @@ namespace NolMed.views.models
         {
             _mainViewModel = mainViewModel;
             LoginCommand = new RelayCommand(ExecuteLogin);
+            RegisterCommand = new RelayCommand(ExecuteRegister);
         }
 
         public void ExecuteLogin(object button)
         {
+            // password handling
             var passwordBox = button as PasswordBox;
             if (string.IsNullOrEmpty(passwordBox?.Password)) { ErrorMessage = "Please enter a password"; return; }
-            //var password = BC.BCrypt.HashPassword(passwordBox.Password);
             var password = passwordBox.Password;
 
+            // find username
             if (!DatabaseFunctions.FindUsername(Username)) { ErrorMessage = "Username doesn't exist"; return; }
 
+            // authenticate user
             if (DatabaseFunctions.AuthenticateUser(password, Username))
             {
                 var role = "Admin";
@@ -54,6 +59,11 @@ namespace NolMed.views.models
 
             passwordBox.Clear();
 
+        }
+
+        public void ExecuteRegister(object button)
+        {
+            _mainViewModel.PromptRegister();
         }
     }
 }
