@@ -14,8 +14,18 @@
 
         <Border Grid.Column="0" Background="#2C3E50">
             <ListBox ItemsSource="{Binding MenuItems}" 
-                     SelectedItem="{Binding SelectedMenuItem}"
                      Background="Transparent" BorderThickness="0">
+
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Padding" Value="20,15"/>
+                        <Setter Property="Margin" Value="5,2"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Title}" Foreground="White" Padding="10" FontSize="16"/>

@@ -31,7 +31,6 @@ namespace NolMed.views.models
 
         public MainViewModel()
         {
-            MenuItems = new ObservableCollection<model.MenuItem>();
             IsLoggedIn = false;
             PromptLogin();
         }
@@ -55,6 +54,7 @@ namespace NolMed.views.models
 
         private void GeneratePage()
         {
+            MenuItems = NavigationService.GetNavigationMenu(CurrentUser);
             CurrentView = new DeskViewModel();
         }
     }
