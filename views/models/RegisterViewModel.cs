@@ -38,16 +38,25 @@ namespace NolMed.views.models
 
         private void RegisterMe(object button)
         {
+            // validate inputs
             if (!ValidateInputs()) { return; }
+            // password functions
             var passwordBox = button as PasswordBox;
             if (string.IsNullOrEmpty(passwordBox?.Password)) { ErrorMessage = "Please enter a password"; return; }
             var password = BC.BCrypt.HashPassword(passwordBox.Password);
 
+            // check if username exists. username must be unique
+            if (DatabaseFunctions.FindUsername(Username)) { ErrorMessage = "Username exists, please try again."; return; }
+
+            // create employee object
             Employee registeredUser = new Employee() { FirstName = FirstName, LastName = LastName, Username = Username, Password = password };
 
-            Debug.WriteLine($"---------- new user: {registeredUser.FirstName}, {registeredUser.LastName}, {registeredUser.Username}, {registeredUser.Password}");
+            // pass new employee to database
             DatabaseFunctions.RegisterUser(registeredUser);
+            // login new user
             _mainViewModel.LoginUser(registeredUser);
+
+            passwordBox.Clear();
         }
 
         private bool ValidateInputs()
