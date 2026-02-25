@@ -54,8 +54,10 @@ namespace NolMed.views.models
 
         private void GeneratePage()
         {
-            MenuItems = NavigationService.GetNavigationMenu(CurrentUser);
             CurrentView = new DeskViewModel();
+
+            MenuItems = NavigationService.GetNavigationMenu(CurrentUser);
+            OnPropertyChanged(nameof(MenuItems));
         }
     }
 }
