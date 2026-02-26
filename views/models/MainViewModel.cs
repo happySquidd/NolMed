@@ -12,11 +12,25 @@ namespace NolMed.views.models
 {
     public class MainViewModel : BaseView
     {
+        // the current view
         private object _currentView;
         public object CurrentView
         {
             get => _currentView;
             set { _currentView = value; OnPropertyChanged(); }
+        }
+
+        // changes the tab based on the navigation item clicked
+        private model.MenuItem _selectedMenuItem;
+        public model.MenuItem SelectedMenuItem
+        {
+            get => _selectedMenuItem;
+            set
+            {
+                _selectedMenuItem = value;
+                OnPropertyChanged();
+                if (_selectedMenuItem != null) { CurrentView = _selectedMenuItem.ViewTab; }
+            }
         }
 
         private bool _isLoggedIn;
