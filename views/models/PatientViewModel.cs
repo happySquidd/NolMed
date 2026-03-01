@@ -8,17 +8,17 @@ namespace NolMed.views.models
 {
     public class PatientViewModel : BaseView
     {
-        private string _placeholderText;
+        private string _welcomeText;
         
-        public string PlaceholderText
+        public string WelcomeText
         {
-            get => _placeholderText;
-            set { _placeholderText = value; OnPropertyChanged(); }
+            get => _welcomeText;
+            set { _welcomeText = value; OnPropertyChanged(); }
         }
 
         public PatientViewModel()
         {
-            PlaceholderText = "Patient info tab";
+            WelcomeText = "Patient info tab";
         }
     }
 }
