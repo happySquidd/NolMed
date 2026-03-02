@@ -7,9 +7,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TextBlock Text="{Binding Message}" 
+        <TextBlock Text="{Binding WelcomeMessage}" 
                    FontSize="24" 
-                   HorizontalAlignment="Center" 
-                   VerticalAlignment="Center"/>
+                   HorizontalAlignment="Left" 
+                   VerticalAlignment="Top" Margin="36,21,0,0"/>
     </Grid>
 </UserControl>

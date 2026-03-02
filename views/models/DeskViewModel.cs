@@ -10,7 +10,7 @@ namespace NolMed.views.models
     {
         private string _message;
 
-        public string Message
+        public string WelcomeMessage
         {
             get { return _message; }
             set { _message = value; OnPropertyChanged(); }
@@ -18,7 +18,7 @@ namespace NolMed.views.models
 
         public DeskViewModel()
         {
-            Message = "Welcome to the helpdesk!";
+            WelcomeMessage = "Welcome to the helpdesk!";
         }
     }
 }
