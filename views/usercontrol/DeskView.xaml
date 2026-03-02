@@ -11,5 +11,13 @@
                    FontSize="24" 
                    HorizontalAlignment="Left" 
                    VerticalAlignment="Top" Margin="36,21,0,0"/>
+        <TextBlock Text="Lookup patient by last name: " 
+                   FontSize="14" 
+                   HorizontalAlignment="Left" 
+                   VerticalAlignment="Top" Margin="36,61,0,0"/>
+        <TextBlock Text="Lookup patient by room number: " 
+                   FontSize="14" 
+                   HorizontalAlignment="Left" 
+                   VerticalAlignment="Top" Margin="36,76,0,0"/>
     </Grid>
 </UserControl>
