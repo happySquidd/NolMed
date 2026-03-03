@@ -49,5 +49,25 @@ namespace NolMed.database
             }
             Debug.WriteLine("-------------------- Exited user add");
         }
+
+        public static void AssignPatientRoom(Patient? patient, int room_number)
+        {
+            using(DatabaseContext database = new DatabaseContext())
+            {
+                Room newRoom = new Room { PatientId = patient.Id, RoomNumber = room_number };
+                database.Rooms.Add(newRoom);
+                database.SaveChanges();
+            }
+        }
+
+        public static List<Room> GetAllRooms()
+        {
+            using (DatabaseContext database = new DatabaseContext())
+            {
+                List<Room> allRooms = new List<Room>();
+                allRooms = database.Rooms.ToList();
+                return allRooms;
+            }
+        }
     }
 }

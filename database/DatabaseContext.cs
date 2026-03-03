@@ -19,6 +19,7 @@ namespace NolMed.database
         public DbSet<Allergy> Allergies { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<EmployeeAction> EmployeeActions { get; set; }
+        public DbSet<Room> Rooms { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

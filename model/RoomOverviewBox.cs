@@ -8,7 +8,9 @@ namespace NolMed.model
 {
     public class RoomOverviewBox
     {
-        public string RoomName { get; set; }
+        public int RoomNumber { get; set; }
+        public string? PatientName { get; set; }
+        public string? RoomName { get; set; }
         public string BackgroundColor { get; set; }
     }
 }

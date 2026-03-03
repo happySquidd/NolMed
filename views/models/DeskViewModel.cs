@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace NolMed.views.models
@@ -35,6 +36,7 @@ namespace NolMed.views.models
             set { _message = value; OnPropertyChanged(); }
         }
         public ICommand AssignPatient { get; }
+        public ICommand RoomBoxClicked { get; }
 
         public ObservableCollection<RoomOverviewBox> PatientRooms { get; set; }
         #endregion
@@ -49,6 +51,7 @@ namespace NolMed.views.models
             }
             WelcomeMessage = "Welcome to the helpdesk!";
             AssignPatient = new RelayCommand(ButtonClicked, CanClick);
+            RoomBoxClicked = new RelayCommand(RoomClicked);
         }
 
         public void ButtonClicked(object button)
@@ -59,6 +62,14 @@ namespace NolMed.views.models
         public bool CanClick(object sender)
         {
             return !string.IsNullOrEmpty(LastName) && !string.IsNullOrEmpty(FirstName);
+        }
+
+        public void RoomClicked(object sender)
+        {
+            if (sender is RoomOverviewBox clickedBox)
+            {
+                Debug.WriteLine($"Clicked: {clickedBox.RoomName}");
+            }
         }
     }
 }

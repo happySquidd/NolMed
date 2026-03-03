@@ -53,16 +53,17 @@
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border Width="200" Height="120"
+                            <Button Width="200" Height="120"
                                     Background="{Binding BackgroundColor}"
                                     Margin="10"
-                                    CornerRadius="8">
+                                    Command="{Binding DataContext.RoomBoxClicked, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                    CommandParameter="{Binding}">
                                 <TextBlock Text="{Binding RoomName}" 
                                            Foreground="White" 
                                            FontSize="16"
                                            HorizontalAlignment="Center" 
                                            VerticalAlignment="Center"/>
-                            </Border>
+                            </Button>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
 
