@@ -40,5 +40,35 @@
                 VerticalAlignment="Top" 
                 Width="40" 
                 Command="{Binding AssignPatient}"/>
+
+        <Grid Margin="20, 110, 20, 20">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <ItemsControl ItemsSource="{Binding PatientRooms}">
+
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Width="200" Height="120"
+                                    Background="{Binding BackgroundColor}"
+                                    Margin="10"
+                                    CornerRadius="8">
+                                <TextBlock Text="{Binding RoomName}" 
+                                           Foreground="White" 
+                                           FontSize="16"
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center"/>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+
+                </ItemsControl>
+
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </UserControl>

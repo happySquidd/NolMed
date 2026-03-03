@@ -1,6 +1,8 @@
-﻿using NolMed.model;
+﻿using Microsoft.Identity.Client;
+using NolMed.model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -11,6 +13,7 @@ namespace NolMed.views.models
 {
     public class DeskViewModel : BaseView
     {
+        #region Definitions
         private string _firstName;
         public string FirstName
         {
@@ -33,15 +36,29 @@ namespace NolMed.views.models
         }
         public ICommand AssignPatient { get; }
 
+        public ObservableCollection<RoomOverviewBox> PatientRooms { get; set; }
+        #endregion
+
         public DeskViewModel()
         {
+            PatientRooms = new ObservableCollection<RoomOverviewBox> {};
+            for (int i = 1; i < 51; i++)
+            {
+                RoomOverviewBox NewRoom = new RoomOverviewBox { RoomName = "Room " + i, BackgroundColor = "#3399ff" };
+                PatientRooms.Add(NewRoom);
+            }
             WelcomeMessage = "Welcome to the helpdesk!";
-            AssignPatient = new RelayCommand(ButtonClicked);
+            AssignPatient = new RelayCommand(ButtonClicked, CanClick);
         }
 
         public void ButtonClicked(object button)
         {
             Debug.WriteLine($"{FirstName}, {LastName}");
+        }
+
+        public bool CanClick(object sender)
+        {
+            return !string.IsNullOrEmpty(LastName) && !string.IsNullOrEmpty(FirstName);
         }
     }
 }
