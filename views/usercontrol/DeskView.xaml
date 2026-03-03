@@ -45,6 +45,7 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                 <ItemsControl ItemsSource="{Binding PatientRooms}">
 
+                    
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Orientation="Horizontal"/>
@@ -58,11 +59,27 @@
                                     Margin="10"
                                     Command="{Binding DataContext.RoomBoxClicked, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                     CommandParameter="{Binding}">
-                                <TextBlock Text="{Binding RoomName}" 
+
+                                <Grid Width="200" Height="120">
+                                    <TextBlock Text="{Binding RoomNumber}" 
+                                           Foreground="White" 
+                                           FontSize="16"
+                                           HorizontalAlignment="Left" 
+                                           VerticalAlignment="Top"
+                                               Margin="10"/>
+                                    <TextBlock Text="{Binding RoomName}"
                                            Foreground="White" 
                                            FontSize="16"
                                            HorizontalAlignment="Center" 
                                            VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding PatientName}"
+                                               Foreground="White" 
+                                               FontSize="16"
+                                               HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center"
+                                               Margin="0,35,0,0"/>
+                                </Grid>
+                                
                             </Button>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

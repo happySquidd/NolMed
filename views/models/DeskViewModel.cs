@@ -1,4 +1,5 @@
 ﻿using Microsoft.Identity.Client;
+using NolMed.database;
 using NolMed.model;
 using System;
 using System.Collections.Generic;
@@ -38,20 +39,43 @@ namespace NolMed.views.models
         public ICommand AssignPatient { get; }
         public ICommand RoomBoxClicked { get; }
 
-        public ObservableCollection<RoomOverviewBox> PatientRooms { get; set; }
+        public List<RoomOverviewBox> PatientRooms { get; set; }
+        public List<Room> AllRooms { get; set; }
         #endregion
 
         public DeskViewModel()
         {
-            PatientRooms = new ObservableCollection<RoomOverviewBox> {};
-            for (int i = 1; i < 51; i++)
-            {
-                RoomOverviewBox NewRoom = new RoomOverviewBox { RoomName = "Room " + i, BackgroundColor = "#3399ff" };
-                PatientRooms.Add(NewRoom);
-            }
+            PatientRooms = new List<RoomOverviewBox> {};
+            PopulateRooms();
+            
             WelcomeMessage = "Welcome to the helpdesk!";
             AssignPatient = new RelayCommand(ButtonClicked, CanClick);
             RoomBoxClicked = new RelayCommand(RoomClicked);
+        }
+
+        public void PopulateRooms()
+        {
+            AllRooms = DatabaseFunctions.GetAllRooms();
+            foreach (Room room in AllRooms)
+            {
+                RoomOverviewBox roomOverview = new()
+                {
+                    RoomNumber = room.RoomNumber,
+                    RoomName = room.RoomName,
+                    // change this later
+                    PatientName = room.PatientId.ToString()
+                };
+                if (room.PatientId != null)
+                {
+                    roomOverview.BackgroundColor = "#279CF5";
+                }
+                else
+                {
+                    roomOverview.BackgroundColor = "#6CE66A";
+                }
+                PatientRooms.Add(roomOverview);
+            }
+            ;
         }
 
         public void ButtonClicked(object button)
@@ -68,7 +92,7 @@ namespace NolMed.views.models
         {
             if (sender is RoomOverviewBox clickedBox)
             {
-                Debug.WriteLine($"Clicked: {clickedBox.RoomName}");
+                Debug.WriteLine($"Clicked: {clickedBox.RoomNumber}");
             }
         }
     }
