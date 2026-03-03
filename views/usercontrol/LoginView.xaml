@@ -28,5 +28,10 @@
                 Command="{Binding RegisterCommand}"
                 Width="60" Height="25"
                 Padding="5" Background="Transparent" Foreground="Black" FontSize="10" Margin="490,317,250,108" BorderThickness="0"/>
+
+        <Button Content="Debug login"
+                Command="{Binding DebugLogin}"
+                Width="90" Height="25"
+                Padding="5" Background="Transparent" Foreground="Black" FontSize="10" Margin="490,367,250,108" BorderThickness="0"/>
     </Grid>
 </UserControl>

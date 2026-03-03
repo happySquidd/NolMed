@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using NolMed.database;
 using System.Diagnostics;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace NolMed.views.models
 {
@@ -19,6 +20,7 @@ namespace NolMed.views.models
         public string Username { get; set; }
         public ICommand LoginCommand { get; }
         public ICommand RegisterCommand { get; }
+        public ICommand DebugLogin { get; }
 
         private string _errorMessage;
         public string ErrorMessage
@@ -32,6 +34,7 @@ namespace NolMed.views.models
             _mainViewModel = mainViewModel;
             LoginCommand = new RelayCommand(ExecuteLogin);
             RegisterCommand = new RelayCommand(ExecuteRegister);
+            DebugLogin = new RelayCommand(ExecuteDebugLogin);
         }
 
         public void ExecuteLogin(object button)
@@ -64,6 +67,12 @@ namespace NolMed.views.models
         public void ExecuteRegister(object button)
         {
             _mainViewModel.PromptRegister();
+        }
+
+        public void ExecuteDebugLogin(object sender)
+        {
+            DatabaseFunctions.AuthenticateUser(password: "test", username: "admin", debug: true);
+            _mainViewModel.LoginUser(new Employee { Username = "admin", Role = "admin" });
         }
     }
 }
