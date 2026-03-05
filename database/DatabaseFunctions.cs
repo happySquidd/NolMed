@@ -70,5 +70,14 @@ namespace NolMed.database
                 return allRooms;
             }
         }
+
+        public static string GetRoomPatientName(int patient_id)
+        {
+            using (DatabaseContext database = new DatabaseContext())
+            {
+                var patient = database.Patients.FirstOrDefault(p => p.Id == patient_id);
+                return patient?.FirstName + " " + patient?.LastName;
+            }
+        }
     }
 }

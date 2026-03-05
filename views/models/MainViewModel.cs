@@ -68,7 +68,7 @@ namespace NolMed.views.models
 
         private void GeneratePage()
         {
-            CurrentView = new DeskViewModel();
+            CurrentView = new DashboardViewModel();
 
             MenuItems = NavigationService.GetNavigationMenu(CurrentUser);
             OnPropertyChanged(nameof(MenuItems));

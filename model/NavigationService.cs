@@ -1,31 +1,29 @@
 ﻿using NolMed.views.models;
+using NolMed.model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NolMed.model
 {
     public class NavigationService
     {
-        public static List<MenuItem> items = new List<MenuItem>
+        public static ObservableCollection<MenuItem> AllMenuItems = new ObservableCollection<MenuItem>();
+        public static ObservableCollection<MenuItem> DashboardMenu = new ObservableCollection<MenuItem>();
+
+        public static List<MenuItem> mainItems = new List<MenuItem>
         {
-            // TODO: change roles
-            new MenuItem { Title = "Dashboard", Icon = null, RoleRequired = null, ViewTab = new DeskViewModel() },
+            new MenuItem { Title = "Dashboard", Icon = null, RoleRequired = null, ViewTab = new DashboardViewModel() },
             new MenuItem { Title = "Patient center", Icon = null, RoleRequired = null, ViewTab = new PatientViewModel() },
             new MenuItem { Title = "Patient vitals", Icon = null, RoleRequired = null, ViewTab = new PatientVitalsViewModel() },
             new MenuItem { Title = "Settings", Icon = null, RoleRequired = null, ViewTab = new SettingsViewModel() }
         };
 
 
-        public static ObservableCollection<MenuItem> AllMenuItems = new ObservableCollection<MenuItem>();
-
         public static ObservableCollection<MenuItem> GetNavigationMenu(Employee user)
         {
             AllMenuItems.Clear();
-            foreach (MenuItem item in items)
+            foreach (MenuItem item in mainItems)
             {
                 // TODO: create a proper role check
                 if (true)

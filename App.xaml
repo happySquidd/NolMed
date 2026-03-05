@@ -31,5 +31,9 @@
             <views:SettingsView/>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type viewmodels:DashboardViewModel}">
+            <views:DashboardView/>
+        </DataTemplate>
+
     </Application.Resources>
 </Application>
