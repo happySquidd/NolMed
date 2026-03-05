@@ -29,7 +29,7 @@ namespace NolMed.views.models
         public List<MenuItem> dashboardItems = new List<MenuItem>
         {
             new MenuItem { Title="All rooms view", Icon=null, RoleRequired=null, ViewTab = new DeskViewModel() },
-            new MenuItem { Title="Check in a patient", Icon=null, RoleRequired=null, ViewTab = new DeskViewModel() },
+            new MenuItem { Title="Check in a patient", Icon=null, RoleRequired=null, ViewTab = new AddPatientViewModel() },
             new MenuItem { Title="Find patient", Icon=null, RoleRequired=null, ViewTab = new DeskViewModel() }
         };
 

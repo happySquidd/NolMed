@@ -48,7 +48,7 @@ namespace NolMed.views.models
             PatientRooms = new List<RoomOverviewBox> {};
             PopulateRooms();
             
-            WelcomeMessage = "Welcome to the helpdesk!";
+            WelcomeMessage = "View of room availability";
             AssignPatient = new RelayCommand(ButtonClicked, CanClick);
             RoomBoxClicked = new RelayCommand(RoomClicked);
         }

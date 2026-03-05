@@ -35,5 +35,8 @@
             <views:DashboardView/>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type viewmodels:AddPatientViewModel}">
+            <views:AddPatientView/>
+        </DataTemplate>
     </Application.Resources>
 </Application>
