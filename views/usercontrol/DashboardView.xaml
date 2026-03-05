@@ -17,11 +17,12 @@
 
             <ListBox ItemsSource="{Binding AllMenuItems}"
                      SelectedItem="{Binding SelectedItem}"
-                     Background="Transparent" BorderThickness="0" Margin="25,51,0,0">
+                     Background="Transparent" BorderThickness="0" Margin="0,51,0,0">
 
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
                         <Setter Property="Padding" Value="20,15"/>
+                        <Setter Property="Margin" Value="5,2"/>
                         <Setter Property="Background" Value="Transparent"/>
                         <Setter Property="BorderThickness" Value="0"/>
                         <Setter Property="Cursor" Value="Hand"/>
