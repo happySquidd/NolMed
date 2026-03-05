@@ -79,5 +79,20 @@ namespace NolMed.database
                 return patient?.FirstName + " " + patient?.LastName;
             }
         }
+
+        public static void RegisterPatient(string first_name, string last_name, DateOnly dob, string? blood_type = null, string? inpatient = null, int? mrn = null)
+        {
+            using (DatabaseContext database = new DatabaseContext())
+            {
+                Patient newPatient = new Patient
+                {
+                    FirstName = first_name,
+                    LastName = last_name,
+                    Dob = dob
+                };
+                database.Patients.Add(newPatient);
+                database.SaveChanges();
+            }
+        }
     }
 }

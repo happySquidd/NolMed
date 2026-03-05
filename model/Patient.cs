@@ -16,9 +16,10 @@ namespace NolMed.model
         public string FirstName { get; set; }
         [Column("last_name")]
         public string LastName { get; set; }
-        public int Mrn { get; set; }
+        public int? Mrn { get; set; }
         public DateOnly Dob { get; set; }
-        public string Blood { get; set; }
-        public bool InPatient { get; set; }
+        [Column("blood_type")]
+        public string? Blood { get; set; }
+        public bool? InPatient { get; set; }
     }
 }

@@ -17,12 +17,13 @@
             <TextBox Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="90,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"/>
 
             <TextBlock HorizontalAlignment="Left" Margin="0,85,0,0" TextWrapping="Wrap" Text="Date of birth*: " VerticalAlignment="Top"  FontSize="14"/>
-            <DatePicker SelectedDate="{Binding DOB, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="90,82,0,0" VerticalAlignment="Top" Width="150"/>
+            <DatePicker Text="{Binding DOB, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="90,82,0,0" VerticalAlignment="Top" Width="150"/>
 
             <TextBlock HorizontalAlignment="Left" Margin="0,109,0,0" TextWrapping="Wrap" Text="Blood type: " VerticalAlignment="Top"  FontSize="14"/>
             <ComboBox SelectedItem="{Binding BloodType}" ItemsSource="{Binding BloodTypeSource}" HorizontalAlignment="Left" Margin="90,107,0,0" VerticalAlignment="Top" Width="150"/>
             
-            <Button Content="Submit" HorizontalAlignment="Left" Margin="190,145,0,0" VerticalAlignment="Top" Width="50" Command="{Binding SubmitPatient}" Background="White"/>
+            <Button Content="Add patient" HorizontalAlignment="Left" Margin="160,166,0,0" VerticalAlignment="Top" Width="80" Command="{Binding SubmitPatient}" Background="White"/>
+            <TextBlock HorizontalAlignment="Left" Margin="160,191,0,0" TextWrapping="Wrap" Text="{Binding UpdateMessage}" Foreground="Green" VerticalAlignment="Top"/>
         </Grid>
     </Grid>
 </UserControl>

@@ -1,4 +1,5 @@
-﻿using NolMed.model;
+﻿using NolMed.database;
+using NolMed.model;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -24,8 +25,8 @@ namespace NolMed.views.models
             get => _lastName;
             set { _lastName = value; OnPropertyChanged(); }
         }
-        private DateTime? _dob;
-        public DateTime? DOB 
+        private DateOnly? _dob;
+        public DateOnly? DOB 
         { 
             get => _dob;
             set { _dob = value; OnPropertyChanged(); }
@@ -38,6 +39,12 @@ namespace NolMed.views.models
             set { _bloodType = value; OnPropertyChanged(); }
         }
         public ICommand SubmitPatient { get; }
+        private string _updateMessage;
+        public string UpdateMessage
+        {
+            get => _updateMessage;
+            set { _updateMessage = value; OnPropertyChanged(); }
+        }
         
 
         public AddPatientViewModel()
@@ -50,6 +57,9 @@ namespace NolMed.views.models
         public void SubmitPatientFunc(object sender)
         {
             Debug.WriteLine($"First name: {FirstName}, Last name: {LastName}, DOB: {DOB}");
+            //BloodType = BloodType == "Select" ? null : BloodType;
+            DatabaseFunctions.RegisterPatient(FirstName, LastName, (DateOnly)DOB);
+            UpdateMessage = "Added the patient and assigned room";
         }
 
         public bool CanSubmit(object sender)
