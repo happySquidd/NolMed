@@ -59,7 +59,20 @@ namespace NolMed.views.models
             Debug.WriteLine($"First name: {FirstName}, Last name: {LastName}, DOB: {DOB}");
             //BloodType = BloodType == "Select" ? null : BloodType;
             DatabaseFunctions.RegisterPatient(FirstName, LastName, (DateOnly)DOB);
-            UpdateMessage = "Added the patient and assigned room";
+            Patient newPatient = DatabaseFunctions.FindPatient(LastName, (DateOnly)DOB);
+            int emptyRoom = 0;
+            // assign an empty room to the patient
+            List<Room> AllRooms = DatabaseFunctions.GetAllRooms();
+            foreach (Room room in AllRooms)
+            {
+                if (room.PatientId == null)
+                {
+                    emptyRoom = room.RoomNumber;
+                    break;
+                }
+            }
+            DatabaseFunctions.AssignPatientRoom(newPatient, emptyRoom);
+            UpdateMessage = $"Added the patient and assigned room. Room number: {emptyRoom}";
         }
 
         public bool CanSubmit(object sender)

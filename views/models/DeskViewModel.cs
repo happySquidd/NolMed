@@ -56,26 +56,18 @@ namespace NolMed.views.models
         public void PopulateRooms()
         {
             AllRooms = DatabaseFunctions.GetAllRooms();
-            foreach (Room room in AllRooms)
+            PatientRooms = DatabaseFunctions.GetRoomsWithPatientNames();
+            foreach (RoomOverviewBox room in PatientRooms)
             {
-                RoomOverviewBox roomOverview = new()
+                if (room.PatientName != null)
                 {
-                    RoomNumber = room.RoomNumber,
-                    RoomName = room.RoomName,
-                    // change this later
-                    PatientName = room.PatientId.ToString()
-                };
-                if (room.PatientId != null)
-                {
-                    roomOverview.BackgroundColor = "#279CF5";
+                    room.BackgroundColor = "#279CF5";
                 }
                 else
                 {
-                    roomOverview.BackgroundColor = "#6CE66A";
+                    room.BackgroundColor = "#6CE66A";
                 }
-                PatientRooms.Add(roomOverview);
             }
-            ;
         }
 
         public void ButtonClicked(object button)

@@ -106,5 +106,13 @@ namespace NolMed.database
                 database.SaveChanges();
             }
         }
+
+        public static Patient FindPatient(string last_name, DateOnly dob)
+        {
+            using (DatabaseContext database = new DatabaseContext())
+            {
+                return database.Patients.FirstOrDefault(p => p.LastName == last_name && p.Dob == dob);
+            }
+        }
     }
 }
