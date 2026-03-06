@@ -71,12 +71,24 @@ namespace NolMed.database
             }
         }
 
-        public static string GetRoomPatientName(int patient_id)
+        public static List<RoomOverviewBox> GetRoomsWithPatientNames()
         {
             using (DatabaseContext database = new DatabaseContext())
             {
-                var patient = database.Patients.FirstOrDefault(p => p.Id == patient_id);
-                return patient?.FirstName + " " + patient?.LastName;
+                List<RoomOverviewBox> rooms = new List<RoomOverviewBox>();
+                var allRooms = GetAllRooms();
+                foreach (Room room in allRooms)
+                {
+                    // if no patient is assigned continue the loop
+                    if (room.PatientId == null) continue;
+                    // grab patient by room patient id
+                    Patient patientInfo = database.Patients.FirstOrDefault(p => p.Id == room.PatientId);
+                    string FirstAndLastName = patientInfo.FirstName + " " + patientInfo.LastName;
+                    // fill room info
+                    RoomOverviewBox roomInfo = new RoomOverviewBox { PatientName = FirstAndLastName, RoomNumber = room.RoomNumber };
+                    rooms.Add(roomInfo);
+                }
+                return rooms;
             }
         }
 
