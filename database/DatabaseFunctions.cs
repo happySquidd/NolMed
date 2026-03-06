@@ -55,8 +55,8 @@ namespace NolMed.database
         {
             using(DatabaseContext database = new DatabaseContext())
             {
-                Room newRoom = new Room { PatientId = patient.Id, RoomNumber = room_number };
-                database.Rooms.Add(newRoom);
+                Room selectedRoom = database.Rooms.FirstOrDefault(r => r.RoomNumber == room_number);
+                selectedRoom.PatientId = patient.Id;
                 database.SaveChanges();
             }
         }
@@ -79,13 +79,15 @@ namespace NolMed.database
                 var allRooms = GetAllRooms();
                 foreach (Room room in allRooms)
                 {
+                    RoomOverviewBox roomInfo = new RoomOverviewBox();
                     // if no patient is assigned continue the loop
-                    if (room.PatientId == null) continue;
+                    if (room.PatientId == null) { roomInfo.RoomNumber = room.RoomNumber; rooms.Add(roomInfo); continue; }
                     // grab patient by room patient id
                     Patient patientInfo = database.Patients.FirstOrDefault(p => p.Id == room.PatientId);
                     string FirstAndLastName = patientInfo.FirstName + " " + patientInfo.LastName;
                     // fill room info
-                    RoomOverviewBox roomInfo = new RoomOverviewBox { PatientName = FirstAndLastName, RoomNumber = room.RoomNumber };
+                    roomInfo.PatientName = FirstAndLastName;
+                    roomInfo.RoomNumber = room.RoomNumber;
                     rooms.Add(roomInfo);
                 }
                 return rooms;

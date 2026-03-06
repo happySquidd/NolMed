@@ -55,7 +55,6 @@ namespace NolMed.views.models
 
         public void PopulateRooms()
         {
-            AllRooms = DatabaseFunctions.GetAllRooms();
             PatientRooms = DatabaseFunctions.GetRoomsWithPatientNames();
             foreach (RoomOverviewBox room in PatientRooms)
             {
