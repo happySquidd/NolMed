@@ -38,6 +38,7 @@ namespace NolMed.views.models
         }
         public ICommand AssignPatient { get; }
         public ICommand RoomBoxClicked { get; }
+        public ICommand RefreshList { get; }
 
         public List<RoomOverviewBox> PatientRooms { get; set; }
         public List<Room> AllRooms { get; set; }
@@ -51,6 +52,7 @@ namespace NolMed.views.models
             WelcomeMessage = "View of room availability";
             AssignPatient = new RelayCommand(ButtonClicked, CanClick);
             RoomBoxClicked = new RelayCommand(RoomClicked);
+            RefreshList = new RelayCommand(RefreshRoomList);
         }
 
         public void PopulateRooms()
@@ -67,6 +69,7 @@ namespace NolMed.views.models
                     room.BackgroundColor = "#6CE66A";
                 }
             }
+            OnPropertyChanged(nameof(PatientRooms));
         }
 
         public void ButtonClicked(object button)
@@ -85,12 +88,18 @@ namespace NolMed.views.models
             {
                 Debug.WriteLine($"Clicked: {clickedBox.RoomNumber}");
                 RemovePatientFromRoom(clickedBox.RoomNumber);
+                PopulateRooms();
             }
         }
 
         public void RemovePatientFromRoom(int roomNumber)
         {
             DatabaseFunctions.RemovePatientFromRoom(roomNumber);
+        }
+
+        public void RefreshRoomList(object sender)
+        {
+            PopulateRooms();
         }
     }
 }
