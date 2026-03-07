@@ -116,5 +116,15 @@ namespace NolMed.database
                 return database.Patients.FirstOrDefault(p => p.LastName == last_name && p.Dob == dob);
             }
         }
+
+        public static void RemovePatientFromRoom(int room_number)
+        {
+            using (DatabaseContext database = new DatabaseContext())
+            {
+                var room = database.Rooms.FirstOrDefault(r => r.RoomNumber == room_number);
+                room.PatientId = null;
+                database.SaveChanges();
+            }
+        }
     }
 }
