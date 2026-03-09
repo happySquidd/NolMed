@@ -57,13 +57,27 @@ namespace NolMed.views.models
         public void SubmitPatientFunc(object sender)
         {
             Debug.WriteLine($"First name: {FirstName}, Last name: {LastName}, DOB: {DOB}");
-            // check if the patient already exists and assign that patient the room
-            if (DatabaseFunctions.FindPatient(LastName, (DateOnly)DOB))
+            // check if the patient already exists, if not register the new patient
+            if (!DatabaseFunctions.PatientExists(FirstName, LastName, (DateOnly)DOB))
             {
-                AssignRoom();
+                DatabaseFunctions.RegisterPatient(FirstName, LastName, (DateOnly)DOB);
+                UpdateMessage = "Added the patient. ";
+            } 
+            else 
+            { 
+                UpdateMessage = "Patient exists. "; 
             }
-            DatabaseFunctions.RegisterPatient(FirstName, LastName, (DateOnly)DOB);
-            Patient newPatient = DatabaseFunctions.FindPatient(LastName, (DateOnly)DOB);
+            Patient patient = DatabaseFunctions.FindPatient(LastName, (DateOnly)DOB);
+            AssignRoom(patient);
+        }
+
+        public bool CanSubmit(object sender)
+        {
+            return !string.IsNullOrEmpty(FirstName) && !string.IsNullOrEmpty(LastName) && DOB.HasValue;
+        }
+
+        public void AssignRoom(Patient patient)
+        {
             int emptyRoom = 0;
             // assign an empty room to the patient
             List<Room> AllRooms = DatabaseFunctions.GetAllRooms();
@@ -75,18 +89,8 @@ namespace NolMed.views.models
                     break;
                 }
             }
-            DatabaseFunctions.AssignPatientRoom(newPatient, emptyRoom);
-            UpdateMessage = $"Added the patient and assigned room. Room number: {emptyRoom}";
-        }
-
-        public bool CanSubmit(object sender)
-        {
-            return !string.IsNullOrEmpty(FirstName) && !string.IsNullOrEmpty(LastName) && DOB.HasValue;
-        }
-
-        public void AssignRoom()
-        {
-
+            DatabaseFunctions.AssignPatientRoom(patient, emptyRoom);
+            UpdateMessage += $"Assigned room: {emptyRoom}";
         }
     }
 }
