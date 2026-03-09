@@ -132,7 +132,7 @@ namespace NolMed.database
             using (DatabaseContext database = new DatabaseContext())
             {
                 var patient = database.Patients.FirstOrDefault(p => p.FirstName == first_name && p.LastName == last_name && p.Dob == dob);
-                return patient != null;
+                return patient != null ? true : false;
             }
         }
     }

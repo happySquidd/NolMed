@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TextBlock Text="Welcome to the dashboard!" 
+        <TextBlock Text="Welcome to the dashboard" 
                     FontSize="24" 
                     HorizontalAlignment="Left" 
                     VerticalAlignment="Top" Margin="10,10,0,0"/>

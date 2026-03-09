@@ -57,7 +57,8 @@ namespace NolMed.views.models
         public void SubmitPatientFunc(object sender)
         {
             Debug.WriteLine($"First name: {FirstName}, Last name: {LastName}, DOB: {DOB}");
-            //BloodType = BloodType == "Select" ? null : BloodType;
+            // check if the patient already exists and assign that patient the room
+            // 
             DatabaseFunctions.RegisterPatient(FirstName, LastName, (DateOnly)DOB);
             Patient newPatient = DatabaseFunctions.FindPatient(LastName, (DateOnly)DOB);
             int emptyRoom = 0;
