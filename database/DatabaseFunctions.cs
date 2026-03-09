@@ -127,7 +127,7 @@ namespace NolMed.database
             }
         }
 
-        public static bool FindPatient(string first_name, string last_name, DateOnly dob)
+        public static bool PatientExists(string first_name, string last_name, DateOnly dob)
         {
             using (DatabaseContext database = new DatabaseContext())
             {
