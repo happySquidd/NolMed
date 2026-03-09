@@ -58,7 +58,10 @@ namespace NolMed.views.models
         {
             Debug.WriteLine($"First name: {FirstName}, Last name: {LastName}, DOB: {DOB}");
             // check if the patient already exists and assign that patient the room
-            // 
+            if (DatabaseFunctions.FindPatient(LastName, (DateOnly)DOB))
+            {
+                AssignRoom();
+            }
             DatabaseFunctions.RegisterPatient(FirstName, LastName, (DateOnly)DOB);
             Patient newPatient = DatabaseFunctions.FindPatient(LastName, (DateOnly)DOB);
             int emptyRoom = 0;
@@ -79,6 +82,11 @@ namespace NolMed.views.models
         public bool CanSubmit(object sender)
         {
             return !string.IsNullOrEmpty(FirstName) && !string.IsNullOrEmpty(LastName) && DOB.HasValue;
+        }
+
+        public void AssignRoom()
+        {
+
         }
     }
 }
