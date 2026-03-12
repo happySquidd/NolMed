@@ -12,6 +12,48 @@
            HorizontalAlignment="Left"
            FontSize="24" Margin="30,30,0,0"/>
         
-        <TextBlock HorizontalAlignment="Left" Margin="30,75,0,0" TextWrapping="Wrap" Text="{Binding PatientName}" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="27,67,0,0" TextWrapping="Wrap" Text="Room:" VerticalAlignment="Top" FontSize="18"/>
+        <ComboBox HorizontalAlignment="Left" 
+                  Margin="83,69,0,0" 
+                  VerticalAlignment="Top"
+                  Width="120" 
+                  SelectedItem="{Binding SelectedRoom, UpdateSourceTrigger=PropertyChanged}" 
+                  ItemsSource="{Binding RoomPicker}"/>
+        
+            <Grid Background="#80000000" Visibility="{Binding IsPopupVisible}" Margin="200, 100">
+                <Border Background="White" Width="300" Height="180">
+                <StackPanel Margin="20">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="First name:" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding FirstNameInput}" Margin="0,5"/>
+
+                        <TextBlock Grid.Column="0" Grid.Row="1" Text="Last name:" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding LastNameInput}" Margin="0,5"/>
+
+                        <TextBlock Grid.Column="0" Grid.Row="2" Text="Dob:" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding DobInput}" Margin="0,5"/>
+
+                        <Button Grid.ColumnSpan="2" Grid.Row="3" Content="Find patient" Command="{Binding SearchPatientByName}" Margin="0,5"/>
+
+                        <Button Grid.ColumnSpan="2" Grid.Row="4" Content="Cancel" Command="{Binding CancelPopup}"/>
+                    </Grid>
+                    
+                </StackPanel>
+                </Border>
+            </Grid>
+
+        <TextBlock HorizontalAlignment="Left" Margin="30,118,0,0" TextWrapping="Wrap" Text="{Binding PatientName}" VerticalAlignment="Top"/>
     </Grid>
 </UserControl>
