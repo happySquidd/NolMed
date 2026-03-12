@@ -11,5 +11,7 @@
            VerticalAlignment="Top"
            HorizontalAlignment="Left"
            FontSize="24" Margin="30,30,0,0"/>
+        
+        <TextBlock HorizontalAlignment="Left" Margin="30,75,0,0" TextWrapping="Wrap" Text="{Binding PatientName}" VerticalAlignment="Top"/>
     </Grid>
 </UserControl>
