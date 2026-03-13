@@ -38,5 +38,9 @@
         <DataTemplate DataType="{x:Type viewmodels:AddPatientViewModel}">
             <views:AddPatientView/>
         </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewmodels:ERViewModel}">
+            <views:ERView/>
+        </DataTemplate>
     </Application.Resources>
 </Application>
