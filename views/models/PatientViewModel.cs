@@ -1,10 +1,12 @@
-﻿using NolMed.model;
+﻿using NolMed.database;
+using NolMed.model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace NolMed.views.models
 {
@@ -91,13 +93,39 @@ namespace NolMed.views.models
             get => _countryName;
             set { _countryName = value; OnPropertyChanged(); }
         }
+        public ICommand SaveInfo { get; }
+        public Patient patient { get; set; }
         #endregion
 
         public PatientViewModel()
         {
             WelcomeText = "Patient info tab";
             IsPopupVisible = "Hidden";
+            SaveInfo = new RelayCommand(SaveInfoFunc, CanSave);
+        }
+
+        public void SaveInfoFunc(object sender)
+        {
+            DatabaseFunctions.UpdatePatientInfo(patient, BloodType, Convert.ToInt32(InsuranceNumber), InsuranceName, StreetName, CityName, StateName, Convert.ToInt32(ZipName), CountryName);
             
+        }
+
+        public bool CanSave(object sender)
+        {
+            if (string.IsNullOrEmpty(PatientName) || 
+                string.IsNullOrEmpty(PatientDob) || 
+                string.IsNullOrEmpty(BloodType) || 
+                string.IsNullOrEmpty(InsuranceNumber) || 
+                string.IsNullOrEmpty(InsuranceName) || 
+                string.IsNullOrEmpty(StreetName) || 
+                string.IsNullOrEmpty(CityName) || 
+                string.IsNullOrEmpty(StateName) || 
+                string.IsNullOrEmpty(ZipName) || 
+                string.IsNullOrEmpty(CountryName))
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

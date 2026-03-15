@@ -90,5 +90,7 @@
                 </Paragraph>
             </FlowDocument>
         </RichTextBox>
+        
+        <Button Content="Save Patient Info" HorizontalAlignment="Left" Margin="27,405,0,0" VerticalAlignment="Top" Width="116" Command="{Binding SaveInfo}"/>
     </Grid>
 </UserControl>

@@ -14,7 +14,7 @@ namespace NolMed.database
         public DbSet<Visit> Visits { get; set; }
         public DbSet<Vitals> CurrentVitals { get; set; }
         public DbSet<Insurance> Insurances { get; set; }
-        public DbSet<Billing> Bililngs { get; set; }
+        public DbSet<Billing> Billings { get; set; }
         public DbSet<Drug> Drugs { get; set; }
         public DbSet<Allergy> Allergies { get; set; }
         public DbSet<Employee> Employees { get; set; }

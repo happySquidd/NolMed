@@ -135,5 +135,56 @@ namespace NolMed.database
                 return patient != null ? true : false;
             }
         }
+
+        public static void UpdatePatientInfo(Patient patient, string blood_type, int insurance_number, string insurance_name, string street, string city, string state, int zip, string country)
+        {
+            using (DatabaseContext database = new DatabaseContext())
+            {
+                // update patient blood type
+                var patientToUpdate = database.Patients.FirstOrDefault(p => p.Id == patient.Id);
+                patientToUpdate.Blood = blood_type;
+                // update patient insurance info, if insurance doesn't exist create new insurance entry
+                var patientInsurance = database.Insurances.FirstOrDefault(i => i.PatientId == patient.Id);
+                if (patientInsurance != null)
+                {
+                    patientInsurance.Name = insurance_name;
+                    patientInsurance.Number = insurance_number;
+                }
+                else
+                {
+                    Insurance newInsurance = new Insurance
+                    {
+                        PatientId = patient.Id,
+                        Name = insurance_name,
+                        Number = insurance_number
+                    };
+                    database.Insurances.Add(newInsurance);
+                }
+                // update patient address info, if address doesn't exist create new address entry
+                var patientAddress = database.Billings.FirstOrDefault(a => a.PatientId == patient.Id);
+                if (patientAddress != null)
+                {
+                    patientAddress.Street = street;
+                    patientAddress.City = city;
+                    patientAddress.State = state;
+                    patientAddress.Zip = zip;
+                    patientAddress.Country = country;
+                }
+                else
+                {
+                    Billing newAddress = new Billing
+                    {
+                        Street = street,
+                        City = city,
+                        State = state,
+                        Zip = zip,
+                        Country = country,
+                        PatientId = patient.Id
+                    };
+                    database.Billings.Add(newAddress);
+                }
+                database.SaveChanges();
+            }
+        }
     }
 }
