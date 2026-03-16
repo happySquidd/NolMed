@@ -142,6 +142,11 @@ namespace NolMed.views.models
                 InsuranceNumber = insurance.Number.ToString();
                 InsuranceName = insurance.Name;
             }
+            else
+            {
+                InsuranceNumber = "";
+                InsuranceName = "";
+            }
             // find address
             var address = DatabaseFunctions.GetPatientBilling(patient);
             if (address != null) 
@@ -151,6 +156,14 @@ namespace NolMed.views.models
                 StateName = address.State;
                 ZipName = address.Zip.ToString();
                 CountryName = address.Country;
+            }
+            else
+            {
+                StreetName = "";
+                CityName = "";
+                StateName = "";
+                ZipName = "";
+                CountryName = "";
             }
         }
 
