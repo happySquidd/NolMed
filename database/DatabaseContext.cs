@@ -13,8 +13,8 @@ namespace NolMed.database
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Visit> Visits { get; set; }
         public DbSet<Vitals> CurrentVitals { get; set; }
-        public DbSet<Insurance> Insurances { get; set; }
-        public DbSet<Billing> Billings { get; set; }
+        public DbSet<Insurance> Insurance { get; set; }
+        public DbSet<Billing> Billing { get; set; }
         public DbSet<Drug> Drugs { get; set; }
         public DbSet<Allergy> Allergies { get; set; }
         public DbSet<Employee> Employees { get; set; }

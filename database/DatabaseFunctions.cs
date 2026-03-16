@@ -144,7 +144,7 @@ namespace NolMed.database
                 var patientToUpdate = database.Patients.FirstOrDefault(p => p.Id == patient.Id);
                 patientToUpdate.Blood = blood_type;
                 // update patient insurance info, if insurance doesn't exist create new insurance entry
-                var patientInsurance = database.Insurances.FirstOrDefault(i => i.PatientId == patient.Id);
+                var patientInsurance = database.Insurance.FirstOrDefault(i => i.PatientId == patient.Id);
                 if (patientInsurance != null)
                 {
                     patientInsurance.Name = insurance_name;
@@ -158,10 +158,10 @@ namespace NolMed.database
                         Name = insurance_name,
                         Number = insurance_number
                     };
-                    database.Insurances.Add(newInsurance);
+                    database.Insurance.Add(newInsurance);
                 }
                 // update patient address info, if address doesn't exist create new address entry
-                var patientAddress = database.Billings.FirstOrDefault(a => a.PatientId == patient.Id);
+                var patientAddress = database.Billing.FirstOrDefault(a => a.PatientId == patient.Id);
                 if (patientAddress != null)
                 {
                     patientAddress.Street = street;
@@ -181,7 +181,7 @@ namespace NolMed.database
                         Country = country,
                         PatientId = patient.Id
                     };
-                    database.Billings.Add(newAddress);
+                    database.Billing.Add(newAddress);
                 }
                 database.SaveChanges();
             }
@@ -191,7 +191,7 @@ namespace NolMed.database
         {
             using (DatabaseContext database = new DatabaseContext())
             {
-                var insurance = database.Insurances.FirstOrDefault(i => i.PatientId == patient.Id);
+                var insurance = database.Insurance.FirstOrDefault(i => i.PatientId == patient.Id);
                 return insurance;
             }
         }
@@ -200,7 +200,7 @@ namespace NolMed.database
         {
             using (DatabaseContext database = new DatabaseContext())
             {
-                var billing = database.Billings.FirstOrDefault(b => b.PatientId == patient.Id);
+                var billing = database.Billing.FirstOrDefault(b => b.PatientId == patient.Id);
                 return billing;
             }
         }

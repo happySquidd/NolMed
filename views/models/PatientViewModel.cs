@@ -137,15 +137,21 @@ namespace NolMed.views.models
             BloodType = patient.Blood;
             // find insurance
             var insurance = DatabaseFunctions.GetPatientInsurance(patient);
-            InsuranceNumber = insurance.Number.ToString();
-            InsuranceName = insurance.Name;
+            if (insurance != null)
+            {
+                InsuranceNumber = insurance.Number.ToString();
+                InsuranceName = insurance.Name;
+            }
             // find address
             var address = DatabaseFunctions.GetPatientBilling(patient);
-            StreetName = address.Street;
-            CityName = address.City;
-            StateName = address.State;
-            ZipName = address.Zip.ToString();
-            CountryName = address.Country;
+            if (address != null) 
+            { 
+                StreetName = address.Street;
+                CityName = address.City;
+                StateName = address.State;
+                ZipName = address.Zip.ToString();
+                CountryName = address.Country;
+            }
         }
 
         public void SaveInfoFunc(object sender)
@@ -158,7 +164,7 @@ namespace NolMed.views.models
         {
             if (string.IsNullOrEmpty(PatientName) || 
                 string.IsNullOrEmpty(PatientDob) || 
-                string.IsNullOrEmpty(BloodType) || 
+                //string.IsNullOrEmpty(BloodType) || 
                 string.IsNullOrEmpty(InsuranceNumber) || 
                 string.IsNullOrEmpty(InsuranceName) || 
                 string.IsNullOrEmpty(StreetName) || 
