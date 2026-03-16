@@ -67,7 +67,9 @@ namespace NolMed.views.models
             { 
                 UpdateMessage = "Patient exists. "; 
             }
-            Patient patient = DatabaseFunctions.FindPatient(LastName, (DateOnly)DOB);
+            // replace with new function
+            //Patient patient = DatabaseFunctions.FindPatient(LastName, (DateOnly)DOB);
+            Patient patient = new Patient();
             AssignRoom(patient);
         }
 

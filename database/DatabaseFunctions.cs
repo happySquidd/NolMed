@@ -29,7 +29,7 @@ namespace NolMed.database
 
         public static bool FindUsername(string username)
         {
-            using(DatabaseContext database = new DatabaseContext())
+            using (DatabaseContext database = new DatabaseContext())
             {
                 var user = database.Employees.FirstOrDefault(u => u.Username == username);
                 if (user != null)
@@ -42,7 +42,7 @@ namespace NolMed.database
 
         public static void RegisterUser(Employee newUser)
         {
-            using(DatabaseContext database = new DatabaseContext())
+            using (DatabaseContext database = new DatabaseContext())
             {
                 database.Employees.Add(newUser);
                 Debug.WriteLine("------------------- Added User");
@@ -53,7 +53,7 @@ namespace NolMed.database
 
         public static void AssignPatientRoom(Patient? patient, int room_number)
         {
-            using(DatabaseContext database = new DatabaseContext())
+            using (DatabaseContext database = new DatabaseContext())
             {
                 Room selectedRoom = database.Rooms.FirstOrDefault(r => r.RoomNumber == room_number);
                 selectedRoom.PatientId = patient.Id;
@@ -109,11 +109,11 @@ namespace NolMed.database
             }
         }
 
-        public static Patient FindPatient(string last_name, DateOnly dob)
+        public static Patient FindPatientById(int patientId)
         {
             using (DatabaseContext database = new DatabaseContext())
             {
-                return database.Patients.FirstOrDefault(p => p.LastName == last_name && p.Dob == dob);
+                return database.Patients.FirstOrDefault(p => p.Id == patientId);
             }
         }
 
@@ -184,6 +184,24 @@ namespace NolMed.database
                     database.Billings.Add(newAddress);
                 }
                 database.SaveChanges();
+            }
+        }
+
+        public static Insurance GetPatientInsurance(Patient patient)
+        {
+            using (DatabaseContext database = new DatabaseContext())
+            {
+                var insurance = database.Insurances.FirstOrDefault(i => i.PatientId == patient.Id);
+                return insurance;
+            }
+        }
+
+        public static Billing GetPatientBilling(Patient patient)
+        {
+            using (DatabaseContext database = new DatabaseContext())
+            {
+                var billing = database.Billings.FirstOrDefault(b => b.PatientId == patient.Id);
+                return billing;
             }
         }
     }

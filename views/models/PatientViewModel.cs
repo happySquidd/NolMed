@@ -23,7 +23,7 @@ namespace NolMed.views.models
         public string SelectedRoom
         {
             get => _selectedRoom;
-            set { _selectedRoom = value; OnPropertyChanged(); }
+            set { _selectedRoom = value; OnPropertyChanged(); UpdateRoomPatient(); }
         }
         public List<string> RoomPicker { get; set; }
         private string _isPopupVisible;
@@ -95,6 +95,7 @@ namespace NolMed.views.models
         }
         public ICommand SaveInfo { get; }
         public Patient patient { get; set; }
+        private List<Room> _allRooms { get; set; }
         #endregion
 
         public PatientViewModel()
@@ -102,12 +103,55 @@ namespace NolMed.views.models
             WelcomeText = "Patient info tab";
             IsPopupVisible = "Hidden";
             SaveInfo = new RelayCommand(SaveInfoFunc, CanSave);
+            PopulateRoomList();
+        }
+
+        public void PopulateRoomList()
+        {
+            _allRooms = DatabaseFunctions.GetAllRooms();
+            CreateRoomList();
+        }
+
+        public void CreateRoomList()
+        {
+            RoomPicker = new List<string>();
+            foreach (Room room in _allRooms)
+            {
+                if (room.PatientId == null) continue;
+                string roomName = $"Room {room.RoomNumber}";
+                RoomPicker.Add(roomName);
+            }
+        }
+
+        public void UpdateRoomPatient()
+        {
+            // define patient parameters based on the selected room
+            if (string.IsNullOrEmpty(SelectedRoom)) return;
+            int roomNumber = Convert.ToInt32(SelectedRoom.Split(' ')[1]);
+            Room selectedRoom = _allRooms.Find(r => r.RoomNumber == roomNumber);
+            patient = DatabaseFunctions.FindPatientById((int)selectedRoom.PatientId);
+            if (patient == null) return;
+            // fill in patient info
+            PatientName = patient.FirstName + " " + patient.LastName;
+            PatientDob = patient.Dob.ToShortDateString();
+            BloodType = patient.Blood;
+            // find insurance
+            var insurance = DatabaseFunctions.GetPatientInsurance(patient);
+            InsuranceNumber = insurance.Number.ToString();
+            InsuranceName = insurance.Name;
+            // find address
+            var address = DatabaseFunctions.GetPatientBilling(patient);
+            StreetName = address.Street;
+            CityName = address.City;
+            StateName = address.State;
+            ZipName = address.Zip.ToString();
+            CountryName = address.Country;
         }
 
         public void SaveInfoFunc(object sender)
         {
+            if (patient == null) return;
             DatabaseFunctions.UpdatePatientInfo(patient, BloodType, Convert.ToInt32(InsuranceNumber), InsuranceName, StreetName, CityName, StateName, Convert.ToInt32(ZipName), CountryName);
-            
         }
 
         public bool CanSave(object sender)
