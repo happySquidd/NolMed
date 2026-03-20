@@ -1,16 +1,28 @@
-﻿using System;
+﻿using Microsoft.Identity.Client;
+using NolMed.database;
+using NolMed.model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace NolMed.views.models
 {
     public class ERViewModel : BaseView
     {
+        public ICommand RoomBoxClicked { get; }
+        public List<RoomOverviewBox> EmergencyRooms { get; set; }
         public ERViewModel()
         {
+            EmergencyRooms = new List<RoomOverviewBox>();
+            LoadRooms();
+        }
 
+        public void LoadRooms()
+        {
+            
         }
     }
 }
