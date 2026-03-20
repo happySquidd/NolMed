@@ -88,6 +88,7 @@ namespace NolMed.database
                     // fill room info
                     roomInfo.PatientName = FirstAndLastName;
                     roomInfo.RoomNumber = room.RoomNumber;
+                    roomInfo.RoomName = room.RoomName;
                     rooms.Add(roomInfo);
                 }
                 return rooms;
