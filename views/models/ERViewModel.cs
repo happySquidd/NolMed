@@ -13,16 +13,17 @@ namespace NolMed.views.models
     public class ERViewModel : BaseView
     {
         public ICommand RoomBoxClicked { get; }
-        public List<RoomOverviewBox> EmergencyRooms { get; set; }
+        public List<ErOverviewBox> EmergencyRooms { get; set; }
         public ERViewModel()
         {
-            EmergencyRooms = new List<RoomOverviewBox>();
+            EmergencyRooms = new List<ErOverviewBox>();
             LoadRooms();
         }
 
         public void LoadRooms()
         {
-            
+            EmergencyRooms = DatabaseFunctions.GetEmergencyRoomsInfo();
+            OnPropertyChanged(nameof(EmergencyRooms));
         }
     }
 }

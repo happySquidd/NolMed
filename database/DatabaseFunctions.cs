@@ -76,19 +76,18 @@ namespace NolMed.database
             using (DatabaseContext database = new DatabaseContext())
             {
                 List<RoomOverviewBox> rooms = new List<RoomOverviewBox>();
-                var allRooms = GetAllRooms();
+                var allRooms = database.Rooms.Where(r => r.RoomName != "Emergency room").ToList();
                 foreach (Room room in allRooms)
                 {
                     RoomOverviewBox roomInfo = new RoomOverviewBox();
                     // if no patient is assigned continue the loop
-                    if (room.PatientId == null) { roomInfo.RoomNumber = room.RoomNumber; rooms.Add(roomInfo); continue; }
+                    if (room.PatientId == null) { roomInfo.RoomNumber = room.RoomNumber; roomInfo.RoomName = room.RoomName; rooms.Add(roomInfo); continue; }
                     // grab patient by room patient id
                     Patient patientInfo = database.Patients.FirstOrDefault(p => p.Id == room.PatientId);
                     string FirstAndLastName = patientInfo.FirstName + " " + patientInfo.LastName;
                     // fill room info
                     roomInfo.PatientName = FirstAndLastName;
                     roomInfo.RoomNumber = room.RoomNumber;
-                    roomInfo.RoomName = room.RoomName;
                     rooms.Add(roomInfo);
                 }
                 return rooms;
@@ -203,6 +202,34 @@ namespace NolMed.database
             {
                 var billing = database.Billing.FirstOrDefault(b => b.PatientId == patient.Id);
                 return billing;
+            }
+        }
+
+        public static List<ErOverviewBox> GetEmergencyRoomsInfo()
+        {
+            using (DatabaseContext database = new DatabaseContext())
+            {
+                var emergencyRooms = database.Rooms.Where(r => r.RoomName == "Emergency room").ToList();
+                List<ErOverviewBox> erRoomsOverview = new List<ErOverviewBox>();
+                foreach (Room room in emergencyRooms)
+                {
+                    ErOverviewBox erInfo = new ErOverviewBox();
+                    // if no patient is assigned continue the loop
+                    if (room.PatientId == null) { erInfo.RoomNumber = room.RoomNumber; erRoomsOverview.Add(erInfo); continue; }
+                    // grab patient by room patient id
+                    Patient patientInfo = database.Patients.FirstOrDefault(p => p.Id == room.PatientId);
+                    string FirstAndLastName = patientInfo.FirstName + " " + patientInfo.LastName;
+                    // get vitals
+                    Visit visit = database.Visits.FirstOrDefault(v => v.PatientId == patientInfo.Id);
+                    Vitals vitals = database.CurrentVitals.FirstOrDefault(v => v.VisitId == visit.Id);
+                    // fill room info
+                    erInfo.HeartRate = vitals.Bpm;
+                    erInfo.Temperature = vitals.Temperature;
+                    erInfo.PatientName = FirstAndLastName;
+                    erInfo.RoomNumber = room.RoomNumber;
+                    erRoomsOverview.Add(erInfo);
+                }
+                return erRoomsOverview;
             }
         }
     }

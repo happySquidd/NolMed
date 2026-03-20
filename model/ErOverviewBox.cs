@@ -11,7 +11,7 @@ namespace NolMed.model
         public int RoomNumber { get; set; }
         public string? RoomName { get; set; }
         public string? PatientName { get; set; }
-        public int? Temperature { get; set; }
+        public decimal? Temperature { get; set; }
         public int? HeartRate { get; set; }
         public string? BackgroundColor { get; set; }
     }
