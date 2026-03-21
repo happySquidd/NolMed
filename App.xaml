@@ -44,7 +44,7 @@
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type viewmodels:AddErPatientViewModel}">
-            <views:AddErPatientView
+            <views:AddErPatientView/>
         </DataTemplate>
     </Application.Resources>
 </Application>
