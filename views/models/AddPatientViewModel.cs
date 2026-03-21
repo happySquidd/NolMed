@@ -67,9 +67,8 @@ namespace NolMed.views.models
             { 
                 UpdateMessage = "Patient exists. "; 
             }
-            // replace with new function
-            //Patient patient = DatabaseFunctions.FindPatient(LastName, (DateOnly)DOB);
-            Patient patient = new Patient();
+            // assign patient room
+            Patient patient = DatabaseFunctions.GetPatient(FirstName, LastName, (DateOnly)DOB);
             AssignRoom(patient);
         }
 
@@ -85,14 +84,23 @@ namespace NolMed.views.models
             List<Room> AllRooms = DatabaseFunctions.GetAllRooms();
             foreach (Room room in AllRooms)
             {
-                if (room.PatientId == null)
+                if (room.PatientId == null && room.RoomName != "Emergency room")
                 {
                     emptyRoom = room.RoomNumber;
                     break;
                 }
             }
-            DatabaseFunctions.AssignPatientRoom(patient, emptyRoom);
-            UpdateMessage += $"Assigned room: {emptyRoom}";
+            // assign to room if available, else add to queue
+            if (emptyRoom == 0)
+            {
+                UpdateMessage += "No empty rooms available, added to queue."; 
+                return;
+            }
+            else
+            {
+                DatabaseFunctions.AssignPatientRoom(patient, emptyRoom);
+                UpdateMessage += $"Assigned room: {emptyRoom}";
+            }
         }
     }
 }
