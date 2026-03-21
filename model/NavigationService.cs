@@ -16,6 +16,7 @@ namespace NolMed.model
             new MenuItem { Title = "Dashboard", Icon = null, RoleRequired = null, ViewTab = new DashboardViewModel() },
             new MenuItem { Title = "Patient center", Icon = null, RoleRequired = null, ViewTab = new PatientViewModel() },
             new MenuItem { Title = "ER center", Icon = null, RoleRequired = null, ViewTab = new ERViewModel() },
+            new MenuItem { Title = "Assign ER patients", Icon = null, RoleRequired = null, ViewTab = new AddErPatientViewModel()},
             new MenuItem { Title = "Settings", Icon = null, RoleRequired = null, ViewTab = new SettingsViewModel() }
         };
 
