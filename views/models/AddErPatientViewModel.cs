@@ -90,23 +90,27 @@ namespace NolMed.views.models
         public void AssignRoom(Patient patient)
         {
             var rooms = DatabaseFunctions.GetAllRooms();
-            int roomid = 0;
+            int roomNum = 0;
+            // go through all the rooms and assign the patient to the first available room
             foreach (Room room in rooms)
             {
                 if (room.RoomName == "Emergency room")
                 {
                     if (room.PatientId == null)
                     {
-                        roomid = room.Id;
+                        roomNum = room.RoomNumber;
+                        break;
                     }
                 }
             }
-            if (roomid == 0)
+            // if no rooms are available, add the patient to the queue
+            if (roomNum == 0)
             {
                 UpdateMessage += "No available rooms at the moment, added to queue.";
                 return;
             }
-            DatabaseFunctions.AssignPatientRoom(patient, roomid);
+            DatabaseFunctions.AssignPatientRoom(patient, roomNum);
+            UpdateMessage += $"Patient assigned to room {roomNum}.";
         }
     }
 }
