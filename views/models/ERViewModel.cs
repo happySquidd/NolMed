@@ -3,6 +3,7 @@ using NolMed.database;
 using NolMed.model;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,17 @@ namespace NolMed.views.models
         public void LoadRooms()
         {
             EmergencyRooms = DatabaseFunctions.GetEmergencyRoomsInfo();
+            foreach (var room in EmergencyRooms)
+            {
+                if (room.PatientName == null)
+                {
+                    room.BackgroundColor = "#84E858";
+                }
+                else
+                {
+                    room.BackgroundColor = "#279CF5";
+                }
+            }
             OnPropertyChanged(nameof(EmergencyRooms));
         }
     }
