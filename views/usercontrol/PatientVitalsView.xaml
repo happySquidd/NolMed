@@ -5,12 +5,33 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:NolMed.views.usercontrol"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf">
     <Grid>
         <TextBlock Text="{Binding PlaceholderText}"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   FontSize="24"/>
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Left"
+                   FontSize="24" Margin="10,10,0,0"/>
 
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Background="#1E1E1E" Height="430" Width="780">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Heart rate monitor" Foreground="White" FontSize="18" Margin="10"/>
+
+            <lvc:CartesianChart Grid.Row="1" Series="{Binding ChartSeries}" AnimationsSpeed="0:0:0.2">
+
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis Title="Time" ShowLabels="False"/>
+                </lvc:CartesianChart.AxisX>
+
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Title="Heart Rate (bpm)" MinValue="40" MaxValue="180" Foreground="LightGray"/>
+                </lvc:CartesianChart.AxisY>
+
+            </lvc:CartesianChart>
+        </Grid>
     </Grid>
 </UserControl>
