@@ -86,6 +86,7 @@ namespace NolMed.views.models
 
         private void UpdateYAxis()
         {
+            // TODO: create a more fluid scaling algorithm
             if (HeartRateValues.Count == 0) return;
             var min = HeartRateValues.Min();
             var max = HeartRateValues.Max();
