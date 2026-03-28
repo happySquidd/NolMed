@@ -31,11 +31,11 @@
                 DataTooltip="{x:Null}">
 
                 <lvc:CartesianChart.AxisX>
-                    <lvc:Axis Title="Time" ShowLabels="False"/>
+                    <lvc:Axis Title="" ShowLabels="False"/>
                 </lvc:CartesianChart.AxisX>
 
                 <lvc:CartesianChart.AxisY>
-                    <lvc:Axis Title="Heart Rate (bpm)" MinValue="40" MaxValue="180" Foreground="LightGray"/>
+                    <lvc:Axis Title="Bpm" MinValue="{Binding YMin}" MaxValue="{Binding YMax}" Foreground="LightGray"/>
                 </lvc:CartesianChart.AxisY>
 
             </lvc:CartesianChart>
