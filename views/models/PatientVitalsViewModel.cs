@@ -20,6 +20,20 @@ namespace NolMed.views.models
             get => _placeholderText;
             set { _placeholderText = value; OnPropertyChanged(); }
         }
+        public Axis[] YAxes { get; set; }
+        private double _yMin;
+        public double YMin
+        {
+            get => _yMin;
+            set { _yMin = value; OnPropertyChanged(); }
+        }
+        private double _yMax;
+        public double YMax
+        {
+            get => _yMax;
+            set { _yMax = value; OnPropertyChanged(); }
+        }
+        private const double Padding = 10;
 
         public PatientVitalsViewModel()
         {
@@ -39,6 +53,8 @@ namespace NolMed.views.models
                     Stroke = Brushes.LimeGreen
                 }
             };
+            YMin = 40;
+            YMax = 120;
 
             SubscribeToHeartRate();
         }
@@ -63,8 +79,19 @@ namespace NolMed.views.models
                     });
                     // Update every second
                     await Task.Delay(200); 
+                    UpdateYAxis();
                 }
             });
+        }
+
+        private void UpdateYAxis()
+        {
+            if (HeartRateValues.Count == 0) return;
+            var min = HeartRateValues.Min();
+            var max = HeartRateValues.Max();
+
+            YMin = min - Padding;
+            YMax = max + Padding;
         }
     }
 }
