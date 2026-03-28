@@ -13,7 +13,7 @@
                    HorizontalAlignment="Left"
                    FontSize="24" Margin="10,10,0,0"/>
 
-        <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Background="#1E1E1E" Height="430" Width="780">
+        <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Background="#1E1E1E" Height="290" Width="442" Margin="10,42,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -21,7 +21,14 @@
 
             <TextBlock Grid.Row="0" Text="Heart rate monitor" Foreground="White" FontSize="18" Margin="10"/>
 
-            <lvc:CartesianChart Grid.Row="1" Series="{Binding ChartSeries}" AnimationsSpeed="0:0:0.2">
+            <lvc:CartesianChart 
+                Grid.Row="1" 
+                Series="{Binding ChartSeries}" 
+                DisableAnimations="True" 
+                Hoverable="False"
+                Background="Black"
+                Foreground="LimeGreen"
+                DataTooltip="{x:Null}">
 
                 <lvc:CartesianChart.AxisX>
                     <lvc:Axis Title="Time" ShowLabels="False"/>

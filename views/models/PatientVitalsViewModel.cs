@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace NolMed.views.models
 {
@@ -32,7 +33,10 @@ namespace NolMed.views.models
                     Title = "Heart Rate",
                     Values = HeartRateValues,
                     PointGeometry = null,
-                    LineSmoothness = 0.5
+                    LineSmoothness = 0,
+                    StrokeThickness = 2,
+                    Fill = Brushes.Transparent,
+                    Stroke = Brushes.LimeGreen
                 }
             };
 
@@ -45,6 +49,7 @@ namespace NolMed.views.models
             // Simulate heart rate updates
             Task.Run(async () =>
             {
+                HeartRateValues.Add(0);
                 Random rand = new Random();
                 while (true)
                 {
@@ -53,11 +58,11 @@ namespace NolMed.views.models
                     App.Current.Dispatcher.Invoke(() =>
                     {
                         HeartRateValues.Add(newHeartRate);
-                        // Keep only the latest 30 values
-                        if (HeartRateValues.Count > 30) HeartRateValues.RemoveAt(0);
+                        // Keep only the latest values
+                        if (HeartRateValues.Count > 100) HeartRateValues.RemoveAt(0);
                     });
                     // Update every second
-                    await Task.Delay(1000); 
+                    await Task.Delay(200); 
                 }
             });
         }
