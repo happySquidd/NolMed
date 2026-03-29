@@ -11,6 +11,7 @@ namespace NolMed.views.models
 {
     public class PatientVitalsViewModel : BaseView
     {
+        #region Definitions
         public ChartValues<double> HeartRateValues { get; set; }
         public SeriesCollection ChartSeries { get; set; }
 
@@ -33,7 +34,20 @@ namespace NolMed.views.models
             get => _yMax;
             set { _yMax = value; OnPropertyChanged(); }
         }
-        private const double Padding = 10;
+        private const double ChartPadding = 10;
+        private string _bloodPressureSys;
+        public string BloodPressureSys
+        {
+            get => _bloodPressureSys;
+            set { _bloodPressureSys = value; OnPropertyChanged(); }
+        }
+        private string _bloodPressureDia;
+        public string BloodPressureDia
+        {
+            get => _bloodPressureDia;
+            set { _bloodPressureDia = value; OnPropertyChanged(); }
+        }
+#endregion
 
         public PatientVitalsViewModel()
         {
@@ -86,13 +100,13 @@ namespace NolMed.views.models
 
         private void UpdateYAxis()
         {
-            // TODO: create a more fluid scaling algorithm
+            // TODO: create a smoother scaling algorithm
             if (HeartRateValues.Count == 0) return;
             var min = HeartRateValues.Min();
             var max = HeartRateValues.Max();
 
-            YMin = min - Padding;
-            YMax = max + Padding;
+            YMin = min - ChartPadding;
+            YMax = max + ChartPadding;
         }
     }
 }
