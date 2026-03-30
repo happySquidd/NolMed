@@ -75,6 +75,7 @@ namespace NolMed.views.models
 
         private void SubscribeToHeartRate()
         {
+            // TODO: dispose of this function when closed
             // TODO: connect to redis
             // Simulate heart rate updates
             Task.Run(async () =>
@@ -94,7 +95,7 @@ namespace NolMed.views.models
                         BloodPressureSys = (100 + rand.Next(20)).ToString();
                         BloodPressureDia = (60 + rand.Next(20)).ToString();
                     });
-                    await Task.Delay(200); 
+                    await Task.Delay(500); 
                     UpdateYAxis();
                 }
             });
