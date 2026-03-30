@@ -90,8 +90,10 @@ namespace NolMed.views.models
                         HeartRateValues.Add(newHeartRate);
                         // Keep only the latest values
                         if (HeartRateValues.Count > 100) HeartRateValues.RemoveAt(0);
+                        // blood pressure
+                        BloodPressureSys = (100 + rand.Next(20)).ToString();
+                        BloodPressureDia = (60 + rand.Next(20)).ToString();
                     });
-                    // Update every second
                     await Task.Delay(200); 
                     UpdateYAxis();
                 }
