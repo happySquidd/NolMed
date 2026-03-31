@@ -70,6 +70,7 @@ namespace NolMed.views.models
             {
                 UpdateMessage = "Patient exists. ";
             }
+            // possibly assign patient elsewhere
             Patient patient = DatabaseFunctions.GetPatient(FirstName, LastName, (DateOnly)DOB);
             AssignRoom(patient);
         }
