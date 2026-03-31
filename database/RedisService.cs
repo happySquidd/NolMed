@@ -12,7 +12,7 @@ namespace NolMed.database
         private readonly ConnectionMultiplexer _connection;
         private readonly IDatabase _db;
 
-        RedisService(string connectionString = "localhost:6379")
+        public RedisService(string connectionString = "localhost:6379")
         {
             _connection = ConnectionMultiplexer.Connect(connectionString);
             _db = _connection.GetDatabase();
