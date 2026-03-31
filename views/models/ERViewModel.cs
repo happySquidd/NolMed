@@ -41,6 +41,7 @@ namespace NolMed.views.models
 
         public void RoomClicked(object sender)
         {
+            // TODO: this method will need to show the room details and patient info
             if (sender is ErOverviewBox box)
             {
                 if (box.PatientName != null)
