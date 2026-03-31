@@ -92,7 +92,6 @@ namespace NolMed.views.models
             // Simulate heart rate updates
             Task.Run(async () =>
             {
-                HeartRateValues.Add(0);
                 Random rand = new Random();
                 while (true)
                 {
