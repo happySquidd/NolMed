@@ -47,6 +47,18 @@ namespace NolMed.views.models
             get => _bloodPressureDia;
             set { _bloodPressureDia = value; OnPropertyChanged(); }
         }
+        private string _temperature;
+        public string Temperature
+        {
+            get => _temperature;
+            set { _temperature = value; OnPropertyChanged(); }
+        }
+        private string _bpmNumber;
+        public string BpmNumber
+        {
+            get => _bpmNumber;
+            set { _bpmNumber = value; OnPropertyChanged(); }
+        }
 #endregion
 
         public PatientVitalsViewModel()
@@ -91,9 +103,12 @@ namespace NolMed.views.models
                         HeartRateValues.Add(newHeartRate);
                         // Keep only the latest values
                         if (HeartRateValues.Count > 100) HeartRateValues.RemoveAt(0);
+                        BpmNumber = ((int)newHeartRate).ToString() + " bpm";
                         // blood pressure
                         BloodPressureSys = (100 + rand.Next(20)).ToString();
                         BloodPressureDia = (60 + rand.Next(20)).ToString();
+                        // temperature
+                        Temperature = 36.ToString() + "." + rand.Next(0, 10).ToString() + " °C";
                     });
                     await Task.Delay(500); 
                     UpdateYAxis();
