@@ -18,12 +18,17 @@ namespace NolMed.database
             _db = _connection.GetDatabase();
         }
 
+        public void Dispose() => _connection.Dispose();
+
         public async Task<string> GetValueAsync(string key)
         {
             var value = await _db.StringGetAsync(key);
             return value.HasValue ? value.ToString() : null;
         }
 
-        public void Dispose() => _connection.Dispose();
+        public async Task SetValueAsync(string key, string value)
+        {
+            await _db.StringSetAsync(key, value);
+        }
     }
 }
