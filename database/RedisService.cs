@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,6 +30,18 @@ namespace NolMed.database
         public async Task SetValueAsync(string key, string value)
         {
             await _db.StringSetAsync(key, value);
+        }
+
+        public async Task SubscribeAsync(string channel, Action<string> handler)
+        {
+            var subscriber = _connection.GetSubscriber();
+            await subscriber.SubscribeAsync(channel, (ch, message) => handler(message));
+        }
+
+        public async Task PublishAsync(string channel, string message)
+        {
+            var subscriber = _connection.GetSubscriber();
+            await subscriber.PublishAsync(channel, message);
         }
     }
 }
