@@ -29,11 +29,13 @@ namespace NolMed.database
 
         public async Task SetValueAsync(string key, string value)
         {
+            // TODO: Create room patient connection
             await _db.StringSetAsync(key, value);
         }
 
         public async Task SubscribeAsync(string channel, Action<string> handler)
         {
+            // TODO: Subscribe to all emergency rooms
             var subscriber = _connection.GetSubscriber();
             await subscriber.SubscribeAsync(channel, (ch, message) => handler(message));
         }
