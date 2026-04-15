@@ -3,6 +3,7 @@ using NolMed.database;
 using NolMed.model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -14,12 +15,16 @@ namespace NolMed.views.models
     public class ERViewModel : BaseView
     {
         public List<ErOverviewBox> EmergencyRooms { get; set; }
+        public ICommand RoomBoxClicked { get; }
+        public event Action<int> NavigationRequested;
+
         public ERViewModel()
         {
+            RoomBoxClicked = new RelayCommand(RoomClicked);
             EmergencyRooms = new List<ErOverviewBox>();
             LoadRooms();
         }
-
+        
         public void LoadRooms()
         {
             EmergencyRooms = DatabaseFunctions.GetEmergencyRoomsInfo();
@@ -35,6 +40,20 @@ namespace NolMed.views.models
                 }
             }
             OnPropertyChanged(nameof(EmergencyRooms));
+        }
+
+        public void RoomClicked(object sender)
+        {
+            Debug.WriteLine(sender.ToString());
+            if (sender is ErOverviewBox box)
+            {
+                if (box.PatientName != null)
+                {
+                    NavigationRequested?.Invoke(box.RoomNumber);
+                }
+                // debug line
+                NavigationRequested?.Invoke(0);
+            }
         }
     }
 }

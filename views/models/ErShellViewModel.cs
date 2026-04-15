@@ -2,6 +2,7 @@
 using NolMed.views.usercontrol;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,8 +14,6 @@ namespace NolMed.views.models
     {
         public ERViewModel Section { get; }
 
-        public ICommand RoomBoxClicked { get; }
-
         private object _currentSubView;
         public object CurrentSubView
         {
@@ -25,18 +24,12 @@ namespace NolMed.views.models
         public ErShellViewModel()
         {
             Section = new ERViewModel();
-            RoomBoxClicked = new RelayCommand(RoomClicked);
+            Section.NavigationRequested += roomNum =>
+            {
+                CurrentSubView = new PatientVitalsViewModel(roomNum);
+            };
         }
 
-        public void RoomClicked(object sender)
-        {
-            if (sender is ErOverviewBox box)
-            {
-                if (box.PatientName != null)
-                {
-                    CurrentSubView = new PatientVitalsViewModel(box.RoomNumber);
-                }
-            }
-        }
+        
     }
 }

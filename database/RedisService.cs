@@ -15,8 +15,8 @@ namespace NolMed.database
 
         public RedisService(string connectionString = "localhost:6379")
         {
-            _connection = ConnectionMultiplexer.Connect(connectionString);
-            _db = _connection.GetDatabase();
+            //_connection = ConnectionMultiplexer.Connect(connectionString);
+            //_db = _connection.GetDatabase();
         }
 
         public void Dispose() => _connection.Dispose();
