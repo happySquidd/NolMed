@@ -28,6 +28,7 @@ namespace NolMed.views.models
             {
                 CurrentSubView = new PatientVitalsViewModel(roomNum);
             };
+            CurrentSubView = Section;
         }
 
         
