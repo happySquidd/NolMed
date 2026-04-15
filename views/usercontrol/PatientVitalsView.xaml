@@ -12,6 +12,10 @@
                    VerticalAlignment="Top"
                    HorizontalAlignment="Left"
                    FontSize="24" Margin="10,10,0,0"/>
+        <TextBlock Text="{Binding RoomNumber}"
+           VerticalAlignment="Top"
+           HorizontalAlignment="Left"
+           FontSize="24" Margin="200,10,0,0"/>
 
         <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Background="#1E1E1E" Height="290" Width="442" Margin="10,42,0,0">
             <Grid.RowDefinitions>

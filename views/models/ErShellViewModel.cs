@@ -34,7 +34,7 @@ namespace NolMed.views.models
             {
                 if (box.PatientName != null)
                 {
-                    CurrentSubView = new PatientVitalsViewModel();
+                    CurrentSubView = new PatientVitalsViewModel(box.RoomNumber);
                 }
             }
         }

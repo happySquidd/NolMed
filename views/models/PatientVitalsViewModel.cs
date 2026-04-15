@@ -59,11 +59,18 @@ namespace NolMed.views.models
             get => _bpmNumber;
             set { _bpmNumber = value; OnPropertyChanged(); }
         }
+        private string _roomNumber;
+        public string RoomNumber
+        {
+            get => _roomNumber;
+            set { _roomNumber = value; OnPropertyChanged(); }
+        }
 #endregion
 
-        public PatientVitalsViewModel()
+        public PatientVitalsViewModel(int roomNum)
         {
-            PlaceholderText = "Patient Vitals Tab";
+            PlaceholderText = "Patient Vitals";
+            RoomNumber = $"Room: {roomNum}";
             HeartRateValues = new ChartValues<double>();
 
             ChartSeries = new SeriesCollection
