@@ -53,5 +53,7 @@
 
         <TextBlock HorizontalAlignment="Left" Margin="494,128,0,0" TextWrapping="Wrap" Text="Temperature" VerticalAlignment="Top" FontSize="16"/>
         <Label Content="{Binding Temperature}" HorizontalAlignment="Left" Margin="494,154,0,0" VerticalAlignment="Top"/>
+
+        <Button Content="Back" HorizontalAlignment="Left" Margin="10,337,0,0" VerticalAlignment="Top" Width="40" Command="{Binding BackClicked}"/>
     </Grid>
 </UserControl>

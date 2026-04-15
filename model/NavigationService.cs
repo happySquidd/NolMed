@@ -11,6 +11,9 @@ namespace NolMed.model
         public static ObservableCollection<MenuItem> AllMenuItems = new ObservableCollection<MenuItem>();
         public static ObservableCollection<MenuItem> DashboardMenu = new ObservableCollection<MenuItem>();
 
+        private readonly Stack<BaseView> _tabs = new Stack<BaseView>();
+        private BaseView _currentView;
+
         public static List<MenuItem> mainItems = new List<MenuItem>
         {
             new MenuItem { Title = "Dashboard", Icon = null, RoleRequired = null, ViewTab = new DashboardViewModel() },

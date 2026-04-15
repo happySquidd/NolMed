@@ -26,7 +26,7 @@ namespace NolMed.views.models
             Section = new ERViewModel();
             Section.NavigationRequested += roomNum =>
             {
-                CurrentSubView = new PatientVitalsViewModel(roomNum);
+                CurrentSubView = new PatientVitalsViewModel(roomNum, () => CurrentSubView = Section);
             };
             CurrentSubView = Section;
         }

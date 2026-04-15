@@ -1,10 +1,12 @@
 ﻿using LiveCharts;
 using LiveCharts.Wpf;
+using NolMed.model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace NolMed.views.models
@@ -65,10 +67,12 @@ namespace NolMed.views.models
             get => _roomNumber;
             set { _roomNumber = value; OnPropertyChanged(); }
         }
+        public ICommand BackClicked { get; }
 #endregion
 
-        public PatientVitalsViewModel(int roomNum)
+        public PatientVitalsViewModel(int roomNum, Action goBack)
         {
+            BackClicked = new RelayCommand(_ => goBack());
             PlaceholderText = "Patient Vitals";
             RoomNumber = $"Room: {roomNum}";
             HeartRateValues = new ChartValues<double>();
