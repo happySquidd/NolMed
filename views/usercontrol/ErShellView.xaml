@@ -8,10 +8,8 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <StackPanel>
-            <!-- your existing view, bound to the shell's Section property -->
             <local:ERView DataContext="{Binding Section}"/>
 
-            <!-- sub-view slot, only visible when something is loaded -->
             <ContentControl Content="{Binding CurrentSubView}">
                 <ContentControl.Style>
                     <Style TargetType="ContentControl">

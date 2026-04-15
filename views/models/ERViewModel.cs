@@ -13,11 +13,9 @@ namespace NolMed.views.models
 {
     public class ERViewModel : BaseView
     {
-        public ICommand RoomBoxClicked { get; }
         public List<ErOverviewBox> EmergencyRooms { get; set; }
         public ERViewModel()
         {
-            RoomBoxClicked = new RelayCommand(RoomClicked);
             EmergencyRooms = new List<ErOverviewBox>();
             LoadRooms();
         }
@@ -37,17 +35,6 @@ namespace NolMed.views.models
                 }
             }
             OnPropertyChanged(nameof(EmergencyRooms));
-        }
-
-        public void RoomClicked(object sender)
-        {
-            if (sender is ErOverviewBox box)
-            {
-                if (box.PatientName != null)
-                {
-                    ErShellViewModel.RoomClicked(box.RoomNumber);
-                }
-            }
         }
     }
 }
