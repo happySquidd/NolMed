@@ -29,29 +29,23 @@ namespace NolMed.database
 
         public void Dispose() => _connection.Dispose();
 
-        public async Task<string> GetValueAsync(string key)
+        public async Task SubscribeToRoom(int roomId, Action<string> handler)
         {
-            var value = await _db.StringGetAsync(key);
-            return value.HasValue ? value.ToString() : null;
-        }
-
-        public async Task SetValueAsync(string key, string value)
-        {
-            // TODO: Create room patient connection
-            await _db.StringSetAsync(key, value);
-        }
-
-        public async Task SubscribeAsync(string channel, Action<string> handler)
-        {
-            // TODO: Subscribe to all emergency rooms
+            string channelName = $"emergency:rooms:{roomId}:ekg";
+            var channel = new RedisChannel(channelName, RedisChannel.PatternMode.Literal);
             var subscriber = _connection.GetSubscriber();
-            await subscriber.SubscribeAsync(channel, (ch, message) => handler(message));
+            subscriber.Subscribe(channel, (ch, message) =>
+            {
+                handler?.Invoke(message);
+            });
         }
 
-        public async Task PublishAsync(string channel, string message)
+        public void UnsubscribeFromRoom(string roomId)
         {
+            string channelName = $"emergency:rooms:{roomId}:ekg";
+            var channel = new RedisChannel(channelName, RedisChannel.PatternMode.Literal);
             var subscriber = _connection.GetSubscriber();
-            await subscriber.PublishAsync(channel, message);
+            subscriber.Unsubscribe(channel);
         }
     }
 }
