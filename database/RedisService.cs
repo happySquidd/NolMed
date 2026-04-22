@@ -1,6 +1,7 @@
 ﻿using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.RightsManagement;
 using System.Text;
@@ -12,11 +13,18 @@ namespace NolMed.database
     {
         private readonly ConnectionMultiplexer _connection;
         private readonly IDatabase _db;
-        // TODO: 4/16: wedis
+
         public RedisService(string connectionString = "localhost:6379")
         {
-            //_connection = ConnectionMultiplexer.Connect(connectionString);
-            //_db = _connection.GetDatabase();
+            try
+            {
+                _connection = ConnectionMultiplexer.Connect(connectionString);
+                _db = _connection.GetDatabase();
+            }
+            catch
+            {
+                Debug.WriteLine("redis unavailable");
+            }
         }
 
         public void Dispose() => _connection.Dispose();
