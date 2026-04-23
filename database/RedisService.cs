@@ -47,5 +47,16 @@ namespace NolMed.database
             var subscriber = _connection.GetSubscriber();
             subscriber.Unsubscribe(channel);
         }
+
+        public async Task SubscribeToAllRooms(Action<string> handler)
+        {
+            string channelName = "emergency:rooms:all";
+            var channel = new RedisChannel(channelName, RedisChannel.PatternMode.Literal);
+            var subscriber = _connection.GetSubscriber();
+            subscriber.Subscribe(channel, (ch, message) =>
+            {
+                handler?.Invoke(message);
+            });
+        }
     }
 }
