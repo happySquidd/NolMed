@@ -1,5 +1,6 @@
 ﻿using LiveCharts;
 using LiveCharts.Wpf;
+using NolMed.database;
 using NolMed.model;
 using System;
 using System.Collections.Generic;
@@ -106,8 +107,8 @@ namespace NolMed.views.models
                 Random rand = new Random();
                 while (true)
                 {
-                    // Simulate heart rate between 60-100
-                    double newHeartRate = 60 + rand.NextDouble() * 40;
+                    // call redis
+                    int newHeartRate = 10;
                     App.Current.Dispatcher.Invoke(() =>
                     {
                         HeartRateValues.Add(newHeartRate);
