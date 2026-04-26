@@ -31,6 +31,7 @@ namespace NolMed.database
 
         public async Task SubscribeToRoom(int roomId, Action<string> handler)
         {
+            // opens a subscription and follows it, returning exact room number's heart rate reading
             string channelName = $"emergency:rooms:{roomId}:ekg";
             var channel = new RedisChannel(channelName, RedisChannel.PatternMode.Literal);
             var subscriber = _connection.GetSubscriber();
