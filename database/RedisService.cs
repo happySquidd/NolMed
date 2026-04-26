@@ -50,6 +50,8 @@ namespace NolMed.database
 
         public async Task SubscribeToAllRooms(Action<string> handler)
         {
+            // starts a subscriber connection and connects to all emergency rooms
+            // use for the emergency rooms overview tab
             string channelName = "emergency:rooms:all";
             var channel = new RedisChannel(channelName, RedisChannel.PatternMode.Literal);
             var subscriber = _connection.GetSubscriber();
