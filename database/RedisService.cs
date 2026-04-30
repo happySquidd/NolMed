@@ -14,12 +14,9 @@ namespace NolMed.database
         private readonly ConnectionMultiplexer _connection;
         private readonly IDatabase _db;
 
-        // convert to singleton
-        private static RedisService _instance;
-        public static RedisService Instance => _instance ?? new RedisService();
         private readonly ISubscriber _subscriber;
 
-        private RedisService(string connectionString = "localhost:6379")
+        public RedisService(string connectionString = "localhost:6379")
         {
             try
             {
