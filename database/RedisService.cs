@@ -14,12 +14,18 @@ namespace NolMed.database
         private readonly ConnectionMultiplexer _connection;
         private readonly IDatabase _db;
 
-        public RedisService(string connectionString = "localhost:6379")
+        // convert to singleton
+        private static RedisService _instance;
+        public static RedisService Instance => _instance ?? new RedisService();
+        private readonly ISubscriber _subscriber;
+
+        private RedisService(string connectionString = "localhost:6379")
         {
             try
             {
                 _connection = ConnectionMultiplexer.Connect(connectionString);
                 _db = _connection.GetDatabase();
+                _subscriber = _connection.GetSubscriber();
             }
             catch
             {
