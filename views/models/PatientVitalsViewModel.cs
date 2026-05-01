@@ -64,26 +64,28 @@ namespace NolMed.views.models
             get => _bpmNumber;
             set { _bpmNumber = value; OnPropertyChanged(); }
         }
-        private string _roomNumber;
-        public string RoomNumber
+        private string _roomTitle;
+        public string RoomTitle
         {
-            get => _roomNumber;
-            set { _roomNumber = value; OnPropertyChanged(); }
+            get => _roomTitle;
+            set { _roomTitle = value; OnPropertyChanged(); }
         }
         public ICommand BackClicked { get; }
         public ICommand DischargePatient { get; }
         private readonly Action _goBack;
+        private ErOverviewBox _roomInfo;
 #endregion
 
-        public PatientVitalsViewModel(int roomNum, Action goBack)
+        public PatientVitalsViewModel(ErOverviewBox roomInfo, Action goBack)
         {
             _goBack = goBack;
+            _roomInfo = roomInfo;
             // buttons
             BackClicked = new RelayCommand(_ => _goBack());
             DischargePatient = new RelayCommand(RemovePatient);
 
             PlaceholderText = "Patient Vitals";
-            RoomNumber = $"Room: {roomNum}";
+            RoomTitle = $"Room: {_roomInfo.RoomNumber}";
             HeartRateValues = new ChartValues<double>();
 
             ChartSeries = new SeriesCollection
@@ -105,7 +107,7 @@ namespace NolMed.views.models
             // function to simulate blood pressure and temperature
             GenerateVitals();
             // subscribe to room
-            App.Redis.SubscribeToRoom(roomNum, MonitorHeartRate);
+            App.Redis.SubscribeToRoom(_roomInfo.RoomNumber, MonitorHeartRate);
         }
 
         private void GenerateVitals()
@@ -174,7 +176,7 @@ namespace NolMed.views.models
             if (result2 != MessageBoxResult.Yes) return;
 
             // after confirmation
-            DatabaseFunctions.RemovePatientFromRoom(Convert.ToInt32(RoomNumber));
+            DatabaseFunctions.RemovePatientFromRoom(_roomInfo.RoomId);
             _goBack();
         }
     }

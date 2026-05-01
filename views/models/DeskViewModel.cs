@@ -87,14 +87,14 @@ namespace NolMed.views.models
             if (sender is RoomOverviewBox clickedBox)
             {
                 Debug.WriteLine($"Clicked: {clickedBox.RoomNumber}");
-                RemovePatientFromRoom(clickedBox.RoomNumber);
+                RemovePatientFromRoom(clickedBox.RoomId);
                 PopulateRooms();
             }
         }
 
-        public void RemovePatientFromRoom(int roomNumber)
+        public void RemovePatientFromRoom(int roomId)
         {
-            DatabaseFunctions.RemovePatientFromRoom(roomNumber);
+            DatabaseFunctions.RemovePatientFromRoom(roomId);
         }
 
         public void RefreshRoomList(object sender)

@@ -12,7 +12,7 @@
                    VerticalAlignment="Top"
                    HorizontalAlignment="Left"
                    FontSize="24" Margin="10,10,0,0"/>
-        <TextBlock Text="{Binding RoomNumber}"
+        <TextBlock Text="{Binding RoomTitle}"
            VerticalAlignment="Top"
            HorizontalAlignment="Left"
            FontSize="24" Margin="200,10,0,0"/>

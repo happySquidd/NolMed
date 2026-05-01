@@ -16,7 +16,7 @@ namespace NolMed.views.models
     {
         public List<ErOverviewBox> EmergencyRooms { get; set; }
         public ICommand RoomBoxClicked { get; }
-        public event Action<int> NavigationRequested;
+        public event Action<ErOverviewBox> NavigationRequested;
         public ICommand RefreshPage { get; }
 
         public ERViewModel()
@@ -50,7 +50,7 @@ namespace NolMed.views.models
             {
                 if (box.PatientName != null)
                 {
-                    NavigationRequested?.Invoke(box.RoomNumber);
+                    NavigationRequested?.Invoke(box);
                 }
                 // debug
                 //NavigationRequested?.Invoke(1);

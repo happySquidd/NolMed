@@ -24,9 +24,9 @@ namespace NolMed.views.models
         public ErShellViewModel()
         {
             Section = new ERViewModel();
-            Section.NavigationRequested += roomNum =>
+            Section.NavigationRequested += roomBox =>
             {
-                CurrentSubView = new PatientVitalsViewModel(roomNum, () => CurrentSubView = Section);
+                CurrentSubView = new PatientVitalsViewModel(roomBox, () => CurrentSubView = Section);
             };
             CurrentSubView = Section;
         }
