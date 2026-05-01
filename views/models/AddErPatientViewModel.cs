@@ -44,6 +44,7 @@ namespace NolMed.views.models
             get => _severity;
             set { _severity = value; OnPropertyChanged(); }
         }
+        public List<string> SeveritySource { get; set; }
         public ICommand SubmitPatient { get; }
         public string _updateMessage;
         public string UpdateMessage
@@ -55,6 +56,10 @@ namespace NolMed.views.models
 
         public AddErPatientViewModel()
         {
+            BloodTypeSource = new List<string> { "Select", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-" };
+            BloodType = BloodTypeSource[0];
+            SeveritySource = new List<string> { "Select", "Low", "Medium", "Critical", "Unsure" };
+            Severity = SeveritySource[0];
             SubmitPatient = new RelayCommand(SubmitPatientFunc, CanSubmit);
         }
 
@@ -77,7 +82,7 @@ namespace NolMed.views.models
 
         public bool CanSubmit(object sender)
         {
-            if (string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(LastName) || DOB == null || BloodType == "Select" || string.IsNullOrEmpty(Severity))
+            if (string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(LastName) || DOB == null)
             {
                 return false;
             }
