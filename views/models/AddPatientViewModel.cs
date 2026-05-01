@@ -80,6 +80,7 @@ namespace NolMed.views.models
         public void AssignRoom(Patient patient)
         {
             int emptyRoom = 0;
+            int roomId = -1;
             // assign an empty room to the patient
             List<Room> AllRooms = DatabaseFunctions.GetAllRooms();
             foreach (Room room in AllRooms)
@@ -87,18 +88,19 @@ namespace NolMed.views.models
                 if (room.PatientId == null && room.RoomName != "Emergency room")
                 {
                     emptyRoom = room.RoomNumber;
+                    roomId = room.Id;
                     break;
                 }
             }
             // assign to room if available, else add to queue
-            if (emptyRoom == 0)
+            if (roomId == -1)
             {
                 UpdateMessage += "No empty rooms available, added to queue."; 
                 return;
             }
             else
             {
-                DatabaseFunctions.AssignPatientRoom(patient, emptyRoom);
+                DatabaseFunctions.AssignPatientRoom(patient, roomId);
                 UpdateMessage += $"Assigned room: {emptyRoom}";
             }
         }

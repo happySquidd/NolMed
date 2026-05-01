@@ -22,12 +22,13 @@
 
             <TextBlock HorizontalAlignment="Left" Margin="0,109,0,0" TextWrapping="Wrap" Text="Blood type: " VerticalAlignment="Top"  FontSize="14"/>
             <ComboBox SelectedItem="{Binding BloodType}" ItemsSource="{Binding BloodTypeSource}" HorizontalAlignment="Left" Margin="90,107,0,0" VerticalAlignment="Top" Width="150"/>
-            
+
             <TextBlock HorizontalAlignment="Left" Margin="0,133,0,0" TextWrapping="Wrap" Text="Severity:" VerticalAlignment="Top" FontSize="14"/>
             <ComboBox SelectedItem="{Binding Severity}" ItemsSource="{Binding SeveritySource}" HorizontalAlignment="Left" Margin="90,130,0,0" VerticalAlignment="Top" Width="150"/>
 
             <Button Content="Assign a room" HorizontalAlignment="Left" Margin="160,166,0,0" VerticalAlignment="Top" Width="80" Command="{Binding SubmitPatient}" Background="White"/>
-            <TextBlock HorizontalAlignment="Left" Margin="160,191,0,0" TextWrapping="Wrap" Text="{Binding UpdateMessage}" Foreground="Green" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left" Margin="252,168,0,0" TextWrapping="Wrap" Text="{Binding UpdateMessage}" Foreground="Green" VerticalAlignment="Top"/>
+            <Button Content="New Patient" HorizontalAlignment="Left" Margin="172,191,0,0" VerticalAlignment="Top" Command="{Binding ClearFields}"/>
         </Grid>
     </Grid>
 </UserControl>

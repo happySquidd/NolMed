@@ -51,11 +51,11 @@ namespace NolMed.database
             Debug.WriteLine("-------------------- Exited user add");
         }
 
-        public static void AssignPatientRoom(Patient? patient, int room_number)
+        public static void AssignPatientRoom(Patient? patient, int room_id)
         {
             using (DatabaseContext database = new DatabaseContext())
             {
-                Room selectedRoom = database.Rooms.FirstOrDefault(r => r.RoomNumber == room_number);
+                Room selectedRoom = database.Rooms.FirstOrDefault(r => r.Id == room_id);
                 selectedRoom.PatientId = patient.Id;
                 database.SaveChanges();
             }

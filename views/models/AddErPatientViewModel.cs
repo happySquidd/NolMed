@@ -52,6 +52,7 @@ namespace NolMed.views.models
             get => _updateMessage;
             set { _updateMessage = value; OnPropertyChanged(); }
         }
+        public ICommand ClearFields { get; }
         #endregion
 
         public AddErPatientViewModel()
@@ -60,7 +61,9 @@ namespace NolMed.views.models
             BloodType = BloodTypeSource[0];
             SeveritySource = new List<string> { "Select", "Low", "Medium", "Critical", "Unsure" };
             Severity = SeveritySource[0];
+
             SubmitPatient = new RelayCommand(SubmitPatientFunc, CanSubmit);
+            ClearFields = new RelayCommand(ClearAll);
         }
 
         public void SubmitPatientFunc(object sender)
@@ -88,7 +91,6 @@ namespace NolMed.views.models
             }
             else
             {
-                UpdateMessage = "";
                 return true;
             }
         }
@@ -96,6 +98,7 @@ namespace NolMed.views.models
         public void AssignRoom(Patient patient)
         {
             var rooms = DatabaseFunctions.GetAllRooms();
+            int roomId = -1;
             int roomNum = 0;
             // go through all the rooms and assign the patient to the first available room
             foreach (Room room in rooms)
@@ -104,19 +107,29 @@ namespace NolMed.views.models
                 {
                     if (room.PatientId == null)
                     {
+                        roomId = room.Id;
                         roomNum = room.RoomNumber;
                         break;
                     }
                 }
             }
             // if no rooms are available, add the patient to the queue
-            if (roomNum == 0)
+            if (roomId == -1)
             {
                 UpdateMessage += "No available rooms at the moment, added to queue.";
                 return;
             }
-            DatabaseFunctions.AssignPatientRoom(patient, roomNum);
+            DatabaseFunctions.AssignPatientRoom(patient, roomId);
             UpdateMessage += $"Patient assigned to room {roomNum}.";
+        }
+
+        private void ClearAll(object sender)
+        {
+            FirstName = "";
+            LastName = "";
+            UpdateMessage = "";
+            BloodType = BloodTypeSource[0];
+            Severity = SeveritySource[0];
         }
     }
 }
