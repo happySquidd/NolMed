@@ -31,7 +31,7 @@ namespace NolMed.database
 
         public void Dispose() => _connection.Dispose();
 
-        public async Task SubscribeToRoom(int roomId, Action<string> handler)
+        public void SubscribeToRoom(int roomId, Action<string> handler)
         {
             // opens a subscription and follows it, returning exact room number's heart rate reading
             string channelName = $"emergency:rooms:{roomId}:ekg";
@@ -49,7 +49,7 @@ namespace NolMed.database
             Subscriber.Unsubscribe(channel);
         }
 
-        public async Task SubscribeToAllRooms(Action<string> handler)
+        public void SubscribeToAllRooms(Action<string> handler)
         {
             // starts a subscriber connection and connects to all emergency rooms
             // use for the emergency rooms overview tab

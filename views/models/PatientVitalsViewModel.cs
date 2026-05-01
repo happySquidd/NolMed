@@ -98,7 +98,7 @@ namespace NolMed.views.models
             // function to simulate blood pressure and temperature
             GenerateVitals();
             // subscribe to room
-            App.Redis.SubscribeToRoom(1, MonitorHeartRate);
+            App.Redis.SubscribeToRoom(roomNum, MonitorHeartRate);
         }
 
         private void GenerateVitals()
