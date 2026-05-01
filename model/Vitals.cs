@@ -14,10 +14,10 @@ namespace NolMed.model
         public int Id { get; set; }
         [Column("visit_id")]
         public int VisitId { get; set; }
-        public int Systolic { get; set; }
-        public int Diastolic { get; set; }
-        public decimal Temperature { get; set; }
-        public int Bpm { get; set; }
-        public DateTime Time { get; set; }
+        public int? Systolic { get; set; }
+        public int? Diastolic { get; set; }
+        public decimal? Temperature { get; set; }
+        public int? Bpm { get; set; }
+        public DateTime? Time { get; set; }
     }
 }

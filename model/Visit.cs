@@ -14,7 +14,8 @@ namespace NolMed.model
         public int Id { get; set; }
         [Column("patient_id")]
         public int PatientId { get; set; }
-        public string Reason { get; set; }
-        public DateTime Date { get; set; }
+        public string? Reason { get; set; }
+        [Column("admit_date")]
+        public DateTime? Date { get; set; }
     }
 }

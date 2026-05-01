@@ -12,7 +12,7 @@ namespace NolMed.database
     {
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Visit> Visits { get; set; }
-        public DbSet<Vitals> CurrentVitals { get; set; }
+        public DbSet<Vitals> Vitals { get; set; }
         public DbSet<Insurance> Insurance { get; set; }
         public DbSet<Billing> Billing { get; set; }
         public DbSet<Drug> Drugs { get; set; }

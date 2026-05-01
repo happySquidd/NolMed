@@ -55,8 +55,16 @@ namespace NolMed.database
         {
             using (DatabaseContext database = new DatabaseContext())
             {
+                // assign the patient to the room
                 Room selectedRoom = database.Rooms.FirstOrDefault(r => r.Id == room_id);
                 selectedRoom.PatientId = patient.Id;
+                // create a visit
+                Visit visit = new Visit { PatientId = patient.Id };
+                Debug.WriteLine($"--------- visit id: {visit.Id}");
+                Vitals vitals = new Vitals { VisitId = visit.Id };
+
+                database.Add(visit);
+                database.Add(vitals);
                 database.SaveChanges();
             }
         }
@@ -221,10 +229,8 @@ namespace NolMed.database
                     string FirstAndLastName = patientInfo.FirstName + " " + patientInfo.LastName;
                     // get vitals
                     Visit visit = database.Visits.FirstOrDefault(v => v.PatientId == patientInfo.Id);
-                    Vitals vitals = database.CurrentVitals.FirstOrDefault(v => v.VisitId == visit.Id);
+                    Vitals vitals = database.Vitals.FirstOrDefault(v => v.VisitId == visit.Id);
                     // fill room info
-                    erInfo.HeartRate = vitals.Bpm;
-                    erInfo.Temperature = vitals.Temperature;
                     erInfo.PatientName = FirstAndLastName;
                     erInfo.RoomNumber = room.RoomNumber;
                     erRoomsOverview.Add(erInfo);
