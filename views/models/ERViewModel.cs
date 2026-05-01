@@ -44,7 +44,6 @@ namespace NolMed.views.models
 
         public void RoomClicked(object sender)
         {
-            Debug.WriteLine(sender.ToString());
             if (sender is ErOverviewBox box)
             {
                 if (box.PatientName != null)
