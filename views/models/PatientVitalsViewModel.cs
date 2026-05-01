@@ -5,6 +5,7 @@ using NolMed.model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -94,27 +95,22 @@ namespace NolMed.views.models
             YMin = 40;
             YMax = 120;
 
-            SubscribeToHeartRate();
+            // function to simulate blood pressure and temperature
+            GenerateVitals();
+            // subscribe to room
+            App.Redis.SubscribeToRoom(1, MonitorHeartRate);
         }
 
-        private void SubscribeToHeartRate()
+        private void GenerateVitals()
         {
-            // TODO: dispose of this function when closed
-            // TODO: connect to redis
-            // Simulate heart rate updates
+            // Simulate blood pressure and temperature
             Task.Run(async () =>
             {
                 Random rand = new Random();
                 while (true)
                 {
-                    // call redis
-                    int newHeartRate = 10;
                     App.Current.Dispatcher.Invoke(() =>
                     {
-                        HeartRateValues.Add(newHeartRate);
-                        // Keep only the latest values
-                        if (HeartRateValues.Count > 100) HeartRateValues.RemoveAt(0);
-                        BpmNumber = ((int)newHeartRate).ToString() + " bpm";
                         // blood pressure
                         BloodPressureSys = (100 + rand.Next(20)).ToString();
                         BloodPressureDia = (60 + rand.Next(20)).ToString();
@@ -122,7 +118,6 @@ namespace NolMed.views.models
                         Temperature = 36.ToString() + "." + rand.Next(0, 10).ToString() + " °C";
                     });
                     await Task.Delay(500); 
-                    UpdateYAxis();
                 }
             });
         }
@@ -136,6 +131,21 @@ namespace NolMed.views.models
 
             YMin = min - ChartPadding;
             YMax = max + ChartPadding;
+        }
+
+        private void MonitorHeartRate(string message)
+        {
+            if (double.TryParse(message, out double bpm))
+            {
+                // call the dispatcher to move from the background thread to ui thread
+                App.Current.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    // ui thread
+                    HeartRateValues.Add(bpm);
+                    if (HeartRateValues.Count > 100) HeartRateValues.RemoveAt(0);
+                    UpdateYAxis();
+                }));
+            }
         }
     }
 }
