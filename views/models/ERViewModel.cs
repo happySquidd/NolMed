@@ -52,7 +52,7 @@ namespace NolMed.views.models
                     NavigationRequested?.Invoke(box.RoomNumber);
                 }
                 // debug line
-                NavigationRequested?.Invoke(0);
+                NavigationRequested?.Invoke(1);
             }
         }
     }

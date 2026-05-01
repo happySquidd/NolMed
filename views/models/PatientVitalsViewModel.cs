@@ -107,7 +107,6 @@ namespace NolMed.views.models
                 Random rand = new Random();
                 while (true)
                 {
-                    // TODO: tomorrow do redis here
                     // call redis
                     int newHeartRate = 10;
                     App.Current.Dispatcher.Invoke(() =>

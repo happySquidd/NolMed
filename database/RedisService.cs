@@ -13,7 +13,6 @@ namespace NolMed.database
     {
         private readonly ConnectionMultiplexer _connection;
         private readonly IDatabase _db;
-
         private readonly ISubscriber _subscriber;
 
         public RedisService(string connectionString = "localhost:6379")
