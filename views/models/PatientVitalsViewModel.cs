@@ -141,6 +141,7 @@ namespace NolMed.views.models
                     // ui thread
                     HeartRateValues.Add(bpm);
                     if (HeartRateValues.Count > 100) HeartRateValues.RemoveAt(0);
+                    BpmNumber = bpm.ToString();
                     UpdateYAxis();
                 }));
             }
