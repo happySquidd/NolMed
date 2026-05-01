@@ -19,5 +19,8 @@ namespace NolMed.model
         public decimal? Temperature { get; set; }
         public int? Bpm { get; set; }
         public DateTime? Time { get; set; }
+
+        // navigation property 
+        public Visit Visit { get; set; }
     }
 }

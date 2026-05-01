@@ -59,12 +59,11 @@ namespace NolMed.database
                 Room selectedRoom = database.Rooms.FirstOrDefault(r => r.Id == room_id);
                 selectedRoom.PatientId = patient.Id;
                 // create a visit
-                Visit visit = new Visit { PatientId = patient.Id };
-                Debug.WriteLine($"--------- visit id: {visit.Id}");
-                Vitals vitals = new Vitals { VisitId = visit.Id };
+                Visit newVisit = new Visit { PatientId = patient.Id };
+                Vitals newVitals = new Vitals { Visit = newVisit };
 
-                database.Add(visit);
-                database.Add(vitals);
+                database.Add(newVisit);
+                database.Add(newVitals);
                 database.SaveChanges();
             }
         }

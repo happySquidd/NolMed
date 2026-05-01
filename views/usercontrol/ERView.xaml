@@ -55,5 +55,7 @@
             </ScrollViewer>
         </Grid>
         
+        <Button Content="Refresh" HorizontalAlignment="Left" Margin="237,42,0,0" VerticalAlignment="Top" Command="{Binding RefreshPage}"/>
+
     </Grid>
 </UserControl>

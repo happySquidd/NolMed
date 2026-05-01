@@ -17,12 +17,14 @@ namespace NolMed.views.models
         public List<ErOverviewBox> EmergencyRooms { get; set; }
         public ICommand RoomBoxClicked { get; }
         public event Action<int> NavigationRequested;
+        public ICommand RefreshPage { get; }
 
         public ERViewModel()
         {
             RoomBoxClicked = new RelayCommand(RoomClicked);
             EmergencyRooms = new List<ErOverviewBox>();
             LoadRooms();
+            RefreshPage = new RelayCommand(Refresh);
         }
         
         public void LoadRooms()
@@ -53,6 +55,11 @@ namespace NolMed.views.models
                 // debug
                 //NavigationRequested?.Invoke(1);
             }
+        }
+
+        private void Refresh(object sender)
+        {
+            LoadRooms();
         }
     }
 }
