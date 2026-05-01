@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -70,11 +71,17 @@ namespace NolMed.views.models
             set { _roomNumber = value; OnPropertyChanged(); }
         }
         public ICommand BackClicked { get; }
+        public ICommand DischargePatient { get; }
+        private readonly Action _goBack;
 #endregion
 
         public PatientVitalsViewModel(int roomNum, Action goBack)
         {
-            BackClicked = new RelayCommand(_ => goBack());
+            _goBack = goBack;
+            // buttons
+            BackClicked = new RelayCommand(_ => _goBack());
+            DischargePatient = new RelayCommand(RemovePatient);
+
             PlaceholderText = "Patient Vitals";
             RoomNumber = $"Room: {roomNum}";
             HeartRateValues = new ChartValues<double>();
@@ -145,6 +152,30 @@ namespace NolMed.views.models
                     UpdateYAxis();
                 }));
             }
+        }
+
+        private void RemovePatient(object sender)
+        {
+            // remove patient from the room
+            // first confirmation
+            string message1 = "Confirm";
+            string title1 = "Confirmation";
+            MessageBoxButton buttons = MessageBoxButton.YesNo;
+            MessageBoxImage icon = MessageBoxImage.Warning;
+
+            MessageBoxResult result1 = MessageBox.Show(message1, title1, buttons, icon);
+            if (result1 != MessageBoxResult.Yes) return;
+
+            // second confirmation
+            string message2 = "Are you sure you want to discharge patient?";
+            string title2 = "Confirm discharge";
+
+            MessageBoxResult result2 = MessageBox.Show(message2, title2, buttons, icon);
+            if (result2 != MessageBoxResult.Yes) return;
+
+            // after confirmation
+            DatabaseFunctions.RemovePatientFromRoom(Convert.ToInt32(RoomNumber));
+            _goBack();
         }
     }
 }

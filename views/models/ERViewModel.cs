@@ -50,8 +50,8 @@ namespace NolMed.views.models
                 {
                     NavigationRequested?.Invoke(box.RoomNumber);
                 }
-                // debug line
-                NavigationRequested?.Invoke(1);
+                // debug
+                //NavigationRequested?.Invoke(1);
             }
         }
     }

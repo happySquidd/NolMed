@@ -55,5 +55,6 @@
         <Label Content="{Binding Temperature}" HorizontalAlignment="Left" Margin="494,154,0,0" VerticalAlignment="Top"/>
 
         <Button Content="Back" HorizontalAlignment="Left" Margin="10,337,0,0" VerticalAlignment="Top" Width="40" Command="{Binding BackClicked}"/>
+        <Button Content="Discharge Patient" HorizontalAlignment="Left" Margin="10,362,0,0" VerticalAlignment="Top" Command="{Binding DischargePatient}"/>
     </Grid>
 </UserControl>
