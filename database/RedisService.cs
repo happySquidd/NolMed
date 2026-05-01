@@ -12,16 +12,16 @@ namespace NolMed.database
     public class RedisService : IDisposable
     {
         private readonly ConnectionMultiplexer _connection;
-        private readonly IDatabase _db;
-        private readonly ISubscriber _subscriber;
+        public IDatabase Db;
+        public ISubscriber Subscriber;
 
         public RedisService(string connectionString = "localhost:6379")
         {
             try
             {
                 _connection = ConnectionMultiplexer.Connect(connectionString);
-                _db = _connection.GetDatabase();
-                _subscriber = _connection.GetSubscriber();
+                Db = _connection.GetDatabase();
+                Subscriber = _connection.GetSubscriber();
             }
             catch
             {
@@ -36,8 +36,7 @@ namespace NolMed.database
             // opens a subscription and follows it, returning exact room number's heart rate reading
             string channelName = $"emergency:rooms:{roomId}:ekg";
             var channel = new RedisChannel(channelName, RedisChannel.PatternMode.Literal);
-            var subscriber = _connection.GetSubscriber();
-            subscriber.Subscribe(channel, (ch, message) =>
+            Subscriber.Subscribe(channel, (ch, message) =>
             {
                 handler?.Invoke(message);
             });
@@ -47,8 +46,7 @@ namespace NolMed.database
         {
             string channelName = $"emergency:rooms:{roomId}:ekg";
             var channel = new RedisChannel(channelName, RedisChannel.PatternMode.Literal);
-            var subscriber = _connection.GetSubscriber();
-            subscriber.Unsubscribe(channel);
+            Subscriber.Unsubscribe(channel);
         }
 
         public async Task SubscribeToAllRooms(Action<string> handler)
@@ -57,8 +55,7 @@ namespace NolMed.database
             // use for the emergency rooms overview tab
             string channelName = "emergency:rooms:all";
             var channel = new RedisChannel(channelName, RedisChannel.PatternMode.Literal);
-            var subscriber = _connection.GetSubscriber();
-            subscriber.Subscribe(channel, (ch, message) =>
+            Subscriber.Subscribe(channel, (ch, message) =>
             {
                 handler?.Invoke(message);
             });
