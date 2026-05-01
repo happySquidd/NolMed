@@ -36,7 +36,7 @@ namespace NolMed.database
             // opens a subscription and follows it, returning exact room number's heart rate reading
             string channelName = $"emergency:rooms:{roomId}:ekg";
             var channel = new RedisChannel(channelName, RedisChannel.PatternMode.Literal);
-            Subscriber.Subscribe(channel, (ch, message) =>
+            Subscriber.Subscribe(channel, (_, message) =>
             {
                 handler?.Invoke(message);
             });
@@ -55,7 +55,7 @@ namespace NolMed.database
             // use for the emergency rooms overview tab
             string channelName = "emergency:rooms:all";
             var channel = new RedisChannel(channelName, RedisChannel.PatternMode.Literal);
-            Subscriber.Subscribe(channel, (ch, message) =>
+            Subscriber.Subscribe(channel, (_, message) =>
             {
                 handler?.Invoke(message);
             });

@@ -109,14 +109,12 @@ namespace NolMed.views.models
                 Random rand = new Random();
                 while (true)
                 {
-                    App.Current.Dispatcher.Invoke(() =>
-                    {
-                        // blood pressure
-                        BloodPressureSys = (100 + rand.Next(20)).ToString();
-                        BloodPressureDia = (60 + rand.Next(20)).ToString();
-                        // temperature
-                        Temperature = 36.ToString() + "." + rand.Next(0, 10).ToString() + " °C";
-                    });
+                    // blood pressure
+                    BloodPressureSys = (100 + rand.Next(20)).ToString();
+                    BloodPressureDia = (60 + rand.Next(20)).ToString();
+                    // temperature
+                    Temperature = 36.ToString() + "." + rand.Next(0, 10).ToString() + " °C";
+
                     await Task.Delay(500); 
                 }
             });
