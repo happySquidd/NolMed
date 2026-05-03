@@ -100,6 +100,7 @@ namespace NolMed.views.models
             }
             else
             {
+                // TODO:
                 DatabaseFunctions.AssignPatientRoom(patient, roomId);
                 UpdateMessage += $"Assigned room: {emptyRoom}";
             }
