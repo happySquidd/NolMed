@@ -29,6 +29,7 @@ namespace NolMed.views.models
         
         public void LoadRooms()
         {
+            // TODO: 5/4 
             EmergencyRooms = DatabaseFunctions.GetEmergencyRoomsInfo();
             foreach (var room in EmergencyRooms)
             {
