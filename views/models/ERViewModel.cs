@@ -30,6 +30,7 @@ namespace NolMed.views.models
         public void LoadRooms()
         {
             // TODO: 5/4 
+            // TODO: update automatically when the list changes. need toimplement waiting room
             EmergencyRooms = DatabaseFunctions.GetEmergencyRoomsInfo();
             foreach (var room in EmergencyRooms)
             {
