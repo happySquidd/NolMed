@@ -29,7 +29,7 @@ namespace NolMed.database
             }
         }
 
-        public void Dispose() => _connection.Dispose();
+        public void Dispose() => _connection?.Dispose();
 
         public void SubscribeToRoom(int roomId, Action<string> handler)
         {
