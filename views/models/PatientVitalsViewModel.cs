@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace NolMed.views.models
 {
@@ -101,13 +102,17 @@ namespace NolMed.views.models
                     Stroke = Brushes.LimeGreen
                 }
             };
-            YMin = 40;
-            YMax = 120;
+            YMin = -2;
+            YMax = 3;
 
             // function to simulate blood pressure and temperature
             GenerateVitals();
             // subscribe to room
             App.Redis.SubscribeToRoom(_roomInfo.RoomNumber, MonitorHeartRate);
+            var timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromMilliseconds(40);
+            timer.Tick += SimulateEkg;
+            timer.Start();
         }
 
         private void GenerateVitals()
@@ -129,17 +134,6 @@ namespace NolMed.views.models
             });
         }
 
-        private void UpdateYAxis()
-        {
-            // TODO: create a smoother scaling algorithm
-            if (HeartRateValues.Count == 0) return;
-            var min = HeartRateValues.Min();
-            var max = HeartRateValues.Max();
-
-            YMin = min - ChartPadding;
-            YMax = max + ChartPadding;
-        }
-
         private void MonitorHeartRate(string message)
         {
             if (double.TryParse(message, out double bpm))
@@ -151,7 +145,6 @@ namespace NolMed.views.models
                     HeartRateValues.Add(bpm);
                     if (HeartRateValues.Count > 100) HeartRateValues.RemoveAt(0);
                     BpmNumber = bpm.ToString();
-                    UpdateYAxis();
                 }));
             }
         }
@@ -179,5 +172,42 @@ namespace NolMed.views.models
             DatabaseFunctions.RemovePatientFromRoom(_roomInfo.RoomId);
             _goBack();
         }
+
+        
+        int _beatIndex = 0;
+        private void SimulateEkg(object sender, EventArgs e)
+        {
+            HeartRateValues.Add(ekgBeat[_beatIndex % ekgBeat.Length]);
+            _beatIndex++;
+            if (HeartRateValues.Count > 100) HeartRateValues.RemoveAt(0);
+        }
+
+        // One complete heartbeat cycle — repeat this pattern for continuous EKG
+        double[] ekgBeat = new double[]
+        {
+        // Flatline before P wave
+        0.0, 0.0, 0.0, 0.0, 0.0,
+
+        // P wave (small bump)
+        0.1, 0.2, 0.3, 0.25, 0.1, 0.0,
+
+        // PR segment (flat)
+        0.0, 0.0, 0.0,
+
+        // QRS complex (sharp spike — the iconic part)
+        -0.1,           // Q dip
+        2.0,  // R peak (tall, sharp)
+        -1.2,    // S dip
+        -0.1, 0.0,      // return to baseline
+
+        // ST segment (flat)
+        0.0, 0.0, 0.0,
+
+        // T wave (gentle bump)
+        0.1, 0.25, 0.35, 0.3, 0.2, 0.1, 0.0,
+
+        // Flatline after beat
+        0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
+        };
     }
 }
