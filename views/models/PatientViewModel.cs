@@ -241,13 +241,14 @@ namespace NolMed.views.models
                 InfoText = "Patient not found";
                 return;
             }
+            InfoText = "";
             FillPatientInfo(patient);
             IsPopupVisible = "Hidden";
         }
 
         private bool CanSearch(object sender)
         {
-            return (string.IsNullOrEmpty(FirstNameInput) || string.IsNullOrEmpty(LastNameInput) || DobInput != null);
+            return (!string.IsNullOrWhiteSpace(FirstNameInput) && !string.IsNullOrWhiteSpace(LastNameInput) && DobInput != null);
         }
 
         private void HidePopup(object sender)

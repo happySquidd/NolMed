@@ -28,7 +28,7 @@
 
             <Button Content="Assign a room" HorizontalAlignment="Left" Margin="160,166,0,0" VerticalAlignment="Top" Width="80" Command="{Binding SubmitPatient}" Background="White"/>
             <TextBlock HorizontalAlignment="Left" Margin="252,168,0,0" TextWrapping="Wrap" Text="{Binding UpdateMessage}" Foreground="Green" VerticalAlignment="Top"/>
-            <Button Content="New Patient" HorizontalAlignment="Left" Margin="172,191,0,0" VerticalAlignment="Top" Command="{Binding ClearFields}"/>
+            <Button Content="Clear" HorizontalAlignment="Left" Margin="209,191,0,0" VerticalAlignment="Top" Command="{Binding ClearFields}" Background="White"/>
         </Grid>
     </Grid>
 </UserControl>
