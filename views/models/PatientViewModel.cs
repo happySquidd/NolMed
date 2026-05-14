@@ -111,6 +111,12 @@ namespace NolMed.views.models
             get => _dobSearch;
             set { _dobSearch = value; OnPropertyChanged(); }
         }
+        private string _infoText;
+        public string InfoText
+        {
+            get => _infoText;
+            set { _infoText = value; OnPropertyChanged(); }
+        }
         public ICommand SaveInfo { get; }
         public Patient patient { get; set; }
         private List<Room> _allRooms { get; set; }
@@ -155,6 +161,12 @@ namespace NolMed.views.models
             Room selectedRoom = _allRooms.Find(r => r.RoomNumber == roomNumber);
             patient = DatabaseFunctions.FindPatientById((int)selectedRoom.PatientId);
             if (patient == null) return;
+
+            FillPatientInfo(patient);
+        }
+
+        private void FillPatientInfo(Patient patient)
+        {
             // fill in patient info
             PatientName = patient.FirstName + " " + patient.LastName;
             PatientDob = patient.Dob.ToShortDateString();
@@ -189,6 +201,7 @@ namespace NolMed.views.models
                 ZipName = "";
                 CountryName = "";
             }
+
         }
 
         public void SaveInfoFunc(object sender)
@@ -222,7 +235,13 @@ namespace NolMed.views.models
 
         private void SearchPatient(object sender)
         {
-            DatabaseFunctions.GetPatient(FirstNameInput, LastNameInput, (DateOnly)DobInput);
+            patient = DatabaseFunctions.GetPatient(FirstNameInput, LastNameInput, (DateOnly)DobInput);
+            if (patient == null)
+            {
+                InfoText = "Patient not found";
+                return;
+            }
+            FillPatientInfo(patient);
             IsPopupVisible = "Hidden";
         }
 
