@@ -17,7 +17,7 @@
            HorizontalAlignment="Left"
            FontSize="24" Margin="200,10,0,0"/>
 
-        <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Background="#1E1E1E" Height="290" Width="442" Margin="10,42,0,0">
+        <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Background="#1E1E1E" Height="290" Width="601" Margin="10,42,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -46,13 +46,13 @@
             </lvc:CartesianChart>
         </Grid>
 
-        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" Margin="494,42,0,0" TextWrapping="Wrap" Text="Blood Pressure" FontSize="16"/>
-        <Label Content="{Binding BloodPressureSys}" HorizontalAlignment="Left" Margin="494,78,0,0" VerticalAlignment="Top"/>
-        <Label Content="/" HorizontalAlignment="Left" Margin="537,78,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding BloodPressureDia}" HorizontalAlignment="Left" Margin="557,78,0,0" VerticalAlignment="Top"/>
+        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" Margin="632,42,0,0" TextWrapping="Wrap" Text="Blood Pressure" FontSize="16"/>
+        <Label Content="{Binding BloodPressureSys}" HorizontalAlignment="Left" Margin="632,78,0,0" VerticalAlignment="Top"/>
+        <Label Content="/" HorizontalAlignment="Left" Margin="675,78,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding BloodPressureDia}" HorizontalAlignment="Left" Margin="695,78,0,0" VerticalAlignment="Top"/>
 
-        <TextBlock HorizontalAlignment="Left" Margin="494,128,0,0" TextWrapping="Wrap" Text="Temperature" VerticalAlignment="Top" FontSize="16"/>
-        <Label Content="{Binding Temperature}" HorizontalAlignment="Left" Margin="494,154,0,0" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="632,128,0,0" TextWrapping="Wrap" Text="Temperature" VerticalAlignment="Top" FontSize="16"/>
+        <Label Content="{Binding Temperature}" HorizontalAlignment="Left" Margin="632,154,0,0" VerticalAlignment="Top"/>
 
         <Button Content="Back" HorizontalAlignment="Left" Margin="10,337,0,0" VerticalAlignment="Top" Width="40" Command="{Binding BackClicked}"/>
         <Button Content="Discharge Patient" HorizontalAlignment="Left" Margin="10,362,0,0" VerticalAlignment="Top" Command="{Binding DischargePatient}"/>
