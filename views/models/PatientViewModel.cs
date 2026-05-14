@@ -93,9 +93,30 @@ namespace NolMed.views.models
             get => _countryName;
             set { _countryName = value; OnPropertyChanged(); }
         }
+        private string _firstNameSearch;
+        public string FirstNameInput
+        {
+            get => _firstNameSearch;
+            set { _firstNameSearch = value; OnPropertyChanged(); }
+        }
+        private string _lastNameSearch;
+        public string LastNameInput
+        {
+            get => _lastNameSearch;
+            set { _lastNameSearch = value; OnPropertyChanged(); }
+        }
+        private DateOnly? _dobSearch;
+        public DateOnly? DobInput
+        {
+            get => _dobSearch;
+            set { _dobSearch = value; OnPropertyChanged(); }
+        }
         public ICommand SaveInfo { get; }
         public Patient patient { get; set; }
         private List<Room> _allRooms { get; set; }
+        public ICommand LookupPatient { get; }
+        public ICommand SearchPatientByName { get; }
+        public ICommand CancelPopup { get; }
         #endregion
 
         public PatientViewModel()
@@ -103,6 +124,9 @@ namespace NolMed.views.models
             WelcomeText = "Patient info tab";
             IsPopupVisible = "Hidden";
             SaveInfo = new RelayCommand(SaveInfoFunc, CanSave);
+            LookupPatient = new RelayCommand(DisplayPopup);
+            SearchPatientByName = new RelayCommand(SearchPatient, CanSearch);
+            CancelPopup = new RelayCommand(HidePopup);
             PopulateRoomList();
         }
 
@@ -189,6 +213,27 @@ namespace NolMed.views.models
                 return false;
             }
             return true;
+        }
+
+        private void DisplayPopup(object sender)
+        {
+            IsPopupVisible = "Visible";
+        }
+
+        private void SearchPatient(object sender)
+        {
+            DatabaseFunctions.GetPatient(FirstNameInput, LastNameInput, (DateOnly)DobInput);
+            IsPopupVisible = "Hidden";
+        }
+
+        private bool CanSearch(object sender)
+        {
+            return (string.IsNullOrEmpty(FirstNameInput) || string.IsNullOrEmpty(LastNameInput) || DobInput != null);
+        }
+
+        private void HidePopup(object sender)
+        {
+            IsPopupVisible = "Hidden";
         }
     }
 }
