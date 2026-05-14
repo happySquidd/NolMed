@@ -59,7 +59,7 @@
         </Grid>
 
         <TextBlock HorizontalAlignment="Left" Margin="30,96,0,0" TextWrapping="Wrap" Text="Patient Info" VerticalAlignment="Top" FontSize="16"/>
-        <TextBlock HorizontalAlignment="Left" Margin="30,122,0,0" TextWrapping="Wrap" Text="{Binding PatientName}" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="30,122,0,0" TextWrapping="Wrap" Text="{Binding PatientName}" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <TextBlock HorizontalAlignment="Left" Margin="30,143,0,0" TextWrapping="Wrap" Text="{Binding PatientDob}" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="30,164,0,0" TextWrapping="Wrap" Text="{Binding BloodType}" VerticalAlignment="Top"/>
 
