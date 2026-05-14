@@ -123,6 +123,7 @@ namespace NolMed.views.models
         public ICommand LookupPatient { get; }
         public ICommand SearchPatientByName { get; }
         public ICommand CancelPopup { get; }
+        public ICommand ClearPopupFields { get; }
         #endregion
 
         public PatientViewModel()
@@ -133,6 +134,7 @@ namespace NolMed.views.models
             LookupPatient = new RelayCommand(DisplayPopup);
             SearchPatientByName = new RelayCommand(SearchPatient, CanSearch);
             CancelPopup = new RelayCommand(HidePopup);
+            ClearPopupFields = new RelayCommand(ClearPopup);
             PopulateRoomList();
         }
 
@@ -244,6 +246,7 @@ namespace NolMed.views.models
             InfoText = "";
             FillPatientInfo(patient);
             IsPopupVisible = "Hidden";
+            ClearPopup(this);
         }
 
         private bool CanSearch(object sender)
@@ -254,6 +257,13 @@ namespace NolMed.views.models
         private void HidePopup(object sender)
         {
             IsPopupVisible = "Hidden";
+        }
+
+        private void ClearPopup(object sender)
+        {
+            FirstNameInput = "";
+            LastNameInput = "";
+            DobInput = null;
         }
     }
 }
